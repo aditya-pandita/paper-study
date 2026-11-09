@@ -49,7 +49,7 @@ and to the whole study (Peak-End Rule); Space / 1 / 2 keys in review (Flow).
 
 ## Run it in a browser
 
-From the `Self Development` folder:
+From the repository root:
 
 ```bash
 python3 -m http.server 8765 --bind 127.0.0.1
