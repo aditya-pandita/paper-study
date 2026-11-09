@@ -1,5 +1,7 @@
 # Paper study pack generator
 
+> **Superseded.** The current prompt, with the lessons addendum and the app's other additions merged in, is in [PAPER-TO-PACK.md](PAPER-TO-PACK.md#5-the-prompt). This file is kept for reference.
+
 A copy-and-paste prompt that makes Claude build a complete study pack from one research paper: structured data files plus a set of visual aids (diagrams, charts, and an optional interactive explainer). The paper learning app imports the result. Anyone can use it with any paper.
 
 ## Quick start

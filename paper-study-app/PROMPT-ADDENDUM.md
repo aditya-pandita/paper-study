@@ -1,5 +1,7 @@
 # Addendum to the study pack generator prompt: lessons.json
 
+> **Superseded.** The current prompt, with this addendum and the app's other additions merged in, is in [PAPER-TO-PACK.md](docs/PAPER-TO-PACK.md#5-the-prompt). This file is kept for reference.
+
 The original prompt makes packs for testing yourself (questions, cards, visuals).
 Paper Study is mainly for **reading the paper in an easier form**, so every new pack
 should also contain `lessons.json`: the paper's content rebuilt step by step, at two

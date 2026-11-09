@@ -92,7 +92,7 @@ node paper-study-app/tools/pack.mjs zip attention-is-all-you-need-pack
 python3 paper-study-app/tools/make_video.py attention-is-all-you-need-pack
 ```
 
-See [docs/GENERATING-PACKS.md](docs/GENERATING-PACKS.md) for the full step-by-step workflow.
+See [docs/PAPER-TO-PACK.md](docs/PAPER-TO-PACK.md) for the complete guide: the full prompt, every file format, the checks, and importing.
 
 - `new` starts a pack from an arXiv link: finds the latest version, downloads the PDF
   into `<name>-pack.source/` (kept outside the pack, so sharing a pack never shares the
