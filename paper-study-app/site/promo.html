@@ -1,0 +1,428 @@
+<title>Paper Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a marked-up paper. Wide reading column, margin notes on the left at desktop width, highlighter as the one loud colour. */
+:root {
+  --paper: #fbfaf6;
+  --sheet: #ffffff;
+  --ink: #1b2340;
+  --ink-2: #4a5272;
+  --rule: #e3e1d8;
+  --hl: #ffe45c;          /* highlighter */
+  --hl-ink: #1b2340;
+  --blue: #2f4bd8;        /* ink-pen blue */
+  --blue-soft: #e8ecfd;
+  --ok: #1f7a4d;
+  --display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --body: "Public Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", Consolas, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12162a; --sheet: #1a1f37; --ink: #eceef8; --ink-2: #a9afcb; --rule: #2c3350;
+    --hl: #f5d63d; --hl-ink: #12162a; --blue: #8fa2ff; --blue-soft: #222a4d; --ok: #5fd39a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12162a; --sheet: #1a1f37; --ink: #eceef8; --ink-2: #a9afcb; --rule: #2c3350;
+  --hl: #f5d63d; --hl-ink: #12162a; --blue: #8fa2ff; --blue-soft: #222a4d; --ok: #5fd39a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 400 17px/1.6 var(--body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.02; }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); line-height: 1.1; }
+h3 { font-size: 1.3rem; line-height: 1.25; }
+p { margin: 0; }
+.mono { font-family: var(--mono); }
+.label { font: 600 0.72rem/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+mark { background: linear-gradient(transparent 12%, var(--hl) 12%, var(--hl) 88%, transparent 88%); color: var(--hl-ink); padding: 0 .12em; border-radius: 2px; }
+a { color: var(--blue); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* top bar */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 600 1.05rem/1 var(--display); }
+.brand svg { flex: none; }
+.top nav { display: flex; gap: 18px; flex-wrap: wrap; font: 500 .85rem/1 var(--mono); }
+.top nav a { color: var(--ink-2); text-decoration: none; }
+.top nav a:hover { color: var(--ink); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; padding-block: 40px 72px; }
+.hero-copy { display: grid; gap: 22px; }
+.lede { font-size: 1.2rem; color: var(--ink-2); max-width: 34ch; }
+.platforms { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { font: 500 .78rem/1 var(--mono); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 11px; color: var(--ink-2); background: var(--sheet); }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn { font: 600 .95rem/1 var(--body); padding: 13px 20px; border-radius: 10px; text-decoration: none; border: 0; cursor: pointer; }
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.ghost { color: var(--ink); background: transparent; border: 1px solid var(--rule); }
+
+/* app mock */
+.device { background: var(--sheet); border: 1px solid var(--rule); border-radius: 18px; box-shadow: 0 30px 60px -30px rgb(27 35 64 / .35); overflow: hidden; }
+.device-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--rule); font: 500 .78rem/1 var(--mono); color: var(--ink-2); }
+.dots { display: flex; gap: 6px; } .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--rule); display: block; }
+.hud { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.xpbar { width: 70px; height: 6px; border-radius: 999px; background: var(--blue-soft); overflow: hidden; } .xpbar span { display: block; height: 100%; width: 62%; background: var(--blue); }
+.reader { padding: 22px 24px 24px; display: grid; gap: 14px; }
+.crumbs { font: 500 .75rem/1.3 var(--mono); color: var(--ink-2); }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; padding: 3px; gap: 2px; justify-self: start; }
+.seg button { font: 600 .8rem/1 var(--mono); border: 0; background: transparent; color: var(--ink-2); padding: 8px 14px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
+.step-h { font: 600 1.35rem/1.25 var(--display); }
+.step-body { font: 400 1.02rem/1.6 var(--display); min-height: 9.5em; }
+.step-foot { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 500 .75rem/1.3 var(--mono); color: var(--ink-2); border-top: 1px dashed var(--rule); padding-top: 12px; }
+.toast { justify-self: start; font: 600 .78rem/1 var(--mono); background: var(--blue-soft); color: var(--blue); padding: 8px 12px; border-radius: 8px; }
+
+/* sections */
+section.band { padding-block: 72px; border-top: 1px solid var(--rule); }
+.sec-head { display: grid; gap: 12px; max-width: 62ch; margin-bottom: 36px; }
+.sec-head p { color: var(--ink-2); font-size: 1.08rem; }
+
+/* journey */
+.track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; counter-reset: s; }
+.track li { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 14px; display: grid; gap: 8px; align-content: start; position: relative; }
+.track li .n { font: 600 .72rem/1 var(--mono); color: var(--ink-2); }
+.track li h3 { font-size: 1.12rem; }
+.track li p { font-size: .88rem; color: var(--ink-2); line-height: 1.45; }
+.track li .t { font: 500 .72rem/1 var(--mono); color: var(--blue); margin-top: 4px; }
+.track li.done { border-color: var(--ok); } .track li.done .n { color: var(--ok); }
+.track li.now { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.track li.now .n::after { content: " · you are here"; color: var(--ink); }
+.ng { margin-top: 18px; font-size: .92rem; color: var(--ink-2); }
+
+/* feature grid */
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 56px; }
+.feat { display: grid; gap: 14px; align-content: start; }
+.feat > p { color: var(--ink-2); }
+.panel { background: var(--sheet); border: 1px solid var(--rule); border-radius: 14px; padding: 18px; }
+
+/* figure mock */
+.look { font: 400 1rem/1.55 var(--display); }
+.look .cue { font: 600 .78rem/1 var(--mono); color: var(--blue); display: inline-block; margin-bottom: 10px; }
+.arch { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 10px; }
+.stack { border: 1.5px solid var(--ink); border-radius: 10px; padding: 10px; display: grid; gap: 6px; text-align: center; font: 500 .74rem/1.2 var(--mono); }
+.stack .blk { background: var(--blue-soft); border-radius: 6px; padding: 7px 4px; }
+.stack .nx { color: var(--ink-2); }
+.credit { font: 400 .72rem/1.4 var(--mono); color: var(--ink-2); }
+
+/* links between papers */
+.cites { display: grid; gap: 10px; }
+.cite { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; background: var(--sheet); }
+.cite .ref { font: 600 .72rem/1 var(--mono); color: var(--ink-2); }
+.cite b { font-weight: 600; }
+.cite small { display: block; color: var(--ink-2); font-size: .82rem; }
+.tag { font: 600 .7rem/1 var(--mono); padding: 6px 9px; border-radius: 999px; white-space: nowrap; }
+.tag.open { background: var(--blue-soft); color: var(--blue); }
+.tag.list { border: 1px solid var(--rule); color: var(--ink-2); }
+
+/* leitner */
+.boxes { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.box { border: 1px solid var(--rule); border-radius: 10px; padding: 12px 6px; text-align: center; background: var(--sheet); display: grid; gap: 4px; }
+.box b { font: 600 1.3rem/1 var(--mono); }
+.box span { font: 500 .7rem/1 var(--mono); color: var(--ink-2); }
+.box:nth-child(n+4) { background: var(--blue-soft); border-color: transparent; }
+
+/* game */
+.ladder { display: flex; flex-wrap: wrap; gap: 6px; }
+.ladder span { font: 500 .78rem/1 var(--mono); padding: 7px 10px; border-radius: 8px; border: 1px solid var(--rule); color: var(--ink-2); }
+.ladder span.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.xp { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.xp li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px dashed var(--rule); font-size: .95rem; }
+.xp li b { font: 600 .9rem/1.6 var(--mono); color: var(--blue); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.badges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.badge { border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; background: var(--sheet); }
+.badge b { display: block; font: 600 .82rem/1.3 var(--mono); }
+.badge span { font-size: .8rem; color: var(--ink-2); line-height: 1.35; display: block; margin-top: 2px; }
+
+/* trust */
+.facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 40px; }
+.facts li { display: grid; gap: 8px; align-content: start; }
+.facts li p { color: var(--ink-2); font-size: .97rem; }
+
+/* get it */
+.get { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.get .panel { display: grid; gap: 10px; align-content: start; }
+.get .panel p { color: var(--ink-2); font-size: .93rem; }
+.cmd { display: flex; align-items: stretch; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--paper); }
+.cmd code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; padding: 10px 12px; font: 400 .78rem/1.4 var(--mono); }
+.cmd button { flex: none; border: 0; border-left: 1px solid var(--rule); background: var(--sheet); color: var(--ink-2); font: 600 .72rem/1 var(--mono); padding: 0 12px; cursor: pointer; }
+.cmd button:hover { color: var(--ink); }
+.make { margin-top: 40px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 40px; align-items: start; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: k; }
+.steps li { counter-increment: k; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.steps li::before { content: counter(k); font: 600 .85rem/1 var(--mono); color: var(--blue); }
+.steps li p { color: var(--ink-2); font-size: .95rem; }
+.steps li strong { color: var(--ink); }
+
+footer { border-top: 1px solid var(--rule); padding-block: 28px 40px; color: var(--ink-2); font: 400 .82rem/1.5 var(--mono); }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; padding-block: 20px 56px; }
+  .track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid2, .make { grid-template-columns: 1fr; gap: 40px; }
+  .facts, .get { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .top nav { display: none; }
+  .boxes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .badges { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .arch { grid-template-columns: 1fr; }
+  .reader { padding: 18px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .step-body { transition: opacity .18s ease; }
+  .step-body.swap { opacity: .15; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="3" y="2" width="17" height="22" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="6.5" y="8" width="10" height="3.4" rx="1" fill="#ffe45c"/><path d="M6.5 15h10M6.5 19h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Paper Study
+    </div>
+    <nav aria-label="Sections">
+      <a href="#journey">Journey</a><a href="#reading">Reading</a><a href="#game">Game</a><a href="#trust">Trust</a><a href="#get">Get it</a>
+    </nav>
+  </header>
+
+  <section class="hero" aria-labelledby="h">
+    <div class="hero-copy">
+      <span class="label">For people who read research papers</span>
+      <h1 id="h">Read the paper. <mark>Then own it.</mark></h1>
+      <p class="lede">Paper Study turns an arXiv paper into short lessons you can read in plain English, then walks you through Andrew Ng's four reading passes until you could rebuild the method yourself.</p>
+      <div class="platforms" aria-label="Platforms"><span class="chip">macOS</span><span class="chip">Android</span><span class="chip">Browser</span><span class="chip">Works offline</span></div>
+      <div class="cta"><a class="btn primary" href="#get">Get Paper Study</a><a class="btn ghost" href="#journey">See how it works</a></div>
+    </div>
+
+    <div class="device" role="figure" aria-label="Paper Study reading a lesson from Attention Is All You Need">
+      <div class="device-bar">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Attention Is All You Need</span>
+        <span class="hud" aria-label="Level 3 Explorer, 62 percent to the next level">Lv 3 <span class="xpbar"><span></span></span> 🔥 4</span>
+      </div>
+      <div class="reader">
+        <div class="crumbs">Summary › Lesson 1 · The problem the paper attacks › Step 4 of 4</div>
+        <div class="seg" role="group" aria-label="Reading level">
+          <button type="button" id="lvl-simple" aria-pressed="true">Simple</button>
+          <button type="button" id="lvl-full" aria-pressed="false">Full</button>
+        </div>
+        <h3 class="step-h">The bet: attention on its own</h3>
+        <p class="step-body" id="step-body" aria-live="polite"></p>
+        <div class="step-foot"><span>p. 2 · Sec. 1 and 2</span><span>Terms: Transformer, self-attention</span></div>
+        <span class="toast">+5 XP · summary step</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="band" id="journey" aria-labelledby="j-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">The Journey</span>
+      <h2 id="j-h">Four passes, in the order Andrew Ng reads a paper</h2>
+      <p>Each pass is a checklist of what to read and what to answer. Every item opens that part of the paper inside the app, with its own explanation, figures and tables. Each stage has a suggested time limit, so you don't sink an afternoon into a paper you should have skipped.</p>
+    </div>
+    <ol class="track">
+      <li class="done"><span class="n">1 · 10 min</span><h3>Skim</h3><p>Title, abstract, figures. Predict the results before you see them.</p></li>
+      <li class="done"><span class="n">2 · 2 min</span><h3>Triage</h3><p>Worth more time? Go deeper, or file it and move on.</p></li>
+      <li class="now"><span class="n">3 · 30 min</span><h3>Outline</h3><p>Intro, conclusion, section headings. Map how the parts fit.</p></li>
+      <li><span class="n">4 · 60 min</span><h3>Read it through</h3><p>The whole paper, maths skipped for now, as Ng suggests.</p></li>
+      <li><span class="n">5 · 90 min</span><h3>Master it</h3><p>Maths back in. Note what didn't make sense instead of stalling.</p></li>
+      <li><span class="n">6 · 10 min</span><h3>Debrief</h3><p>Ng's four questions: goal, key idea, what you can use, what to read next.</p></li>
+      <li><span class="n">7 · open</span><h3>Beyond</h3><p>Re-derive the key result on paper. Rebuild it. Read what it cites.</p></li>
+    </ol>
+    <p class="ng">Results you predicted in Pass 1 stay hidden until you've made your guesses, so the paper can still surprise you.</p>
+  </div>
+</section>
+
+<section class="band" id="reading" aria-labelledby="r-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Reading</span>
+      <h2 id="r-h">Made for reading the paper, with quizzes as a check</h2>
+      <p>Every pack rebuilds the paper in the order you'd learn it: the problem, the core idea, each component, why it works, how it was trained, what it achieved. The Attention pack has 11 lessons and 34 steps, each at two reading levels and each citing its page.</p>
+    </div>
+    <div class="grid2">
+      <div class="feat">
+        <h3>When it says “look at Table 1”, Table 1 is right there</h3>
+        <p>The paper's own figures and tables sit inside the step that discusses them, credited, where the licence allows. Simplified redraws are labelled as redraws, so you never confuse them with the original.</p>
+        <div class="panel look">
+          <span class="cue">Look at Figure 1 ↓</span>
+          <div>The encoder and decoder are each a stack of six identical layers.</div>
+          <div class="arch" aria-hidden="true">
+            <div class="stack"><span class="nx">Encoder × 6</span><span class="blk">Feed-forward</span><span class="blk">Multi-head self-attention</span><span class="nx">inputs + positions</span></div>
+            <div class="stack"><span class="nx">Decoder × 6</span><span class="blk">Feed-forward</span><span class="blk">Attention over encoder</span><span class="blk">Masked self-attention</span><span class="nx">outputs so far</span></div>
+          </div>
+          <div class="credit">Simplified redraw shown here. In the app: the original figure, credited to Vaswani et al., 2017.</div>
+        </div>
+      </div>
+      <div class="feat">
+        <h3>Papers link to the papers they cite</h3>
+        <p>If a reference already has a pack in your library, it becomes a link that opens it, matched by arXiv id or title. The rest go on your reading list. Each paper also shows which papers in your library cite it.</p>
+        <p class="credit">Example: the Attention pack's references, in a library that also has a Bahdanau pack.</p>
+        <div class="cites">
+          <div class="cite"><span class="ref">[2]</span><div><b>Neural Machine Translation by Jointly Learning to Align and Translate</b><small>Bahdanau, Cho, Bengio · arXiv 1409.0473</small></div><span class="tag open">Open pack →</span></div>
+          <div class="cite"><span class="ref">[18]</span><div><b>Neural Machine Translation in Linear Time</b><small>ByteNet · Kalchbrenner et al.</small></div><span class="tag list">+ Reading list</span></div>
+          <div class="cite"><span class="ref">[9]</span><div><b>Convolutional Sequence to Sequence Learning</b><small>ConvS2S · Gehring et al.</small></div><span class="tag list">+ Reading list</span></div>
+        </div>
+      </div>
+      <div class="feat">
+        <h3>Cards that come back at the right time</h3>
+        <p>Flashcards test understanding: why, when, what happens if. They aren't for memorising definitions. Remember one and it moves to the next box, so you see it again a little later. Forget one and it goes back to box 1.</p>
+        <div class="boxes" aria-label="Review intervals in days">
+          <div class="box"><b>1</b><span>day</span></div><div class="box"><b>3</b><span>days</span></div><div class="box"><b>7</b><span>days</span></div>
+          <div class="box"><b>14</b><span>days</span></div><div class="box"><b>30</b><span>days</span></div><div class="box"><b>60</b><span>days</span></div>
+        </div>
+      </div>
+      <div class="feat">
+        <h3>A narrated overview, once you've earned it</h3>
+        <p>Each pack can include a short video, one narrated scene per lesson, built from the pack's own pictures. It unlocks after Pass 1, because it gives away the results you were asked to predict.</p>
+        <div class="panel">
+          <div class="label" style="margin-bottom:10px">Attention pack · overview.mp4</div>
+          <div class="ladder" aria-label="Video scenes"><span>Glance</span><span>Problem</span><span>Attention</span><span>Heads</span><span>Masking</span><span>Layers</span><span>Order</span><span>Why</span><span>Training</span><span>Results</span><span>Limits</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="game" aria-labelledby="g-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">The game layer</span>
+      <h2 id="g-h">XP for the real work, never for tapping through</h2>
+      <p>Points come from the steps of Ng's method: ticking off a part of the paper, answering a question, deriving a result without the hint. The weekly goal is 3 papers, close to the 2 or 3 a week Ng recommends.</p>
+    </div>
+    <div class="grid2">
+      <div class="feat">
+        <h3>Ten levels, from Skimmer to Legend</h3>
+        <div class="ladder" aria-label="Levels">
+          <span>Skimmer</span><span>Reader</span><span class="on">Explorer</span><span>Analyst</span><span>Critic</span><span>Scholar</span><span>Researcher</span><span>Expert</span><span>Master</span><span>Legend</span>
+        </div>
+        <ul class="xp" aria-label="How XP is earned">
+          <li>Tick off a part of the paper <b>+10</b></li>
+          <li>Answer a question <b>+20</b></li>
+          <li>Remember a card <b>+10</b></li>
+          <li>Re-derive a result without the hint <b>+60</b></li>
+          <li>Win a boss quiz <b>+50</b></li>
+          <li>Clear a pass <b>+100</b></li>
+          <li>Answer Ng's debrief questions <b>+150</b></li>
+        </ul>
+      </div>
+      <div class="feat">
+        <h3>Badges for good reading habits</h3>
+        <div class="badges">
+          <div class="badge"><b>Skimmer</b><span>Finish Pass 1 on any paper</span></div>
+          <div class="badge"><b>Decider</b><span>Make a triage call</span></div>
+          <div class="badge"><b>Deep diver</b><span>Finish Pass 4, maths and all</span></div>
+          <div class="badge"><b>Derivation hero</b><span>Re-derive a result without a hint</span></div>
+          <div class="badge"><b>Honest reader</b><span>Note something that didn't make sense</span></div>
+          <div class="badge"><b>Fact-checker</b><span>Finish the trust check on a pack</span></div>
+          <div class="badge"><b>Explorer</b><span>Jump to a cited paper's pack</span></div>
+          <div class="badge"><b>Habit formed</b><span>Study 7 days in a row</span></div>
+          <div class="badge"><b>Ng's pace</b><span>Study 3 different papers in one week</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust" aria-labelledby="t-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Trust and privacy</span>
+      <h2 id="t-h">Packs are written by Claude, so the app helps you check them</h2>
+    </div>
+    <ul class="facts">
+      <li><h3>Check the pack</h3><p>A short checklist before you trust a pack: spot-check 3 claims, 2 cards and 1 chart against the paper, then verify the links. Anything wrong becomes a fix request you paste back into the chat.</p></li>
+      <li><h3>Every claim cites a page</h3><p>Lessons, claims and cards point to the page and section they come from. Analogies that aren't from the paper are labelled as analogies.</p></li>
+      <li><h3>Checked on import</h3><p>Every pack is validated when you import it. SVGs with scripts, embedded images or outside links are rejected, and nothing inside them ever runs.</p></li>
+      <li><h3>Fixes you can review</h3><p>Paste Claude's corrections and the app shows exactly what will change, checks the pack again and keeps the old version.</p></li>
+      <li><h3>On your device only</h3><p>Your library, progress and cards stay on the device. The apps have no internet permission and make no network calls.</p></li>
+      <li><h3>No PDF to read</h3><p>The app is the reading experience: lessons, figures and passes. The paper's PDF never has to be opened, and it's kept out of packs you share.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="band" id="get" aria-labelledby="d-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Get it</span>
+      <h2 id="d-h">Build it and add your first paper in a few minutes</h2>
+      <p>Paper Study isn't in an app store. Build it from the project folder: the Mac app needs no Xcode project, and the Android app installs on Android 12 or later.</p>
+    </div>
+    <div class="get">
+      <div class="panel">
+        <h3>Mac</h3>
+        <p>Builds <span class="mono">Paper Study.app</span>. Drag it to Applications. ⌘O imports a pack.</p>
+        <div class="cmd"><code id="c1">./paper-study-app/macos/build.sh</code><button type="button" data-copy="c1">Copy</button></div>
+      </div>
+      <div class="panel">
+        <h3>Android</h3>
+        <p>Builds the APK. Install it on your phone and import a pack folder or a <span class="mono">.pack.json</span>.</p>
+        <div class="cmd"><code id="c2">cd paper-study-app/android &amp;&amp; ./gradlew assembleRelease</code><button type="button" data-copy="c2">Copy</button></div>
+      </div>
+      <div class="panel">
+        <h3>Browser</h3>
+        <p>Serve the folder locally, then open <span class="mono">localhost:8765/paper-study-app/</span> in Chrome, Edge, Arc or Safari.</p>
+        <div class="cmd"><code id="c3">python3 -m http.server 8765 --bind 127.0.0.1</code><button type="button" data-copy="c3">Copy</button></div>
+      </div>
+    </div>
+
+    <div class="make">
+      <div class="sec-head" style="margin:0">
+        <h3>Make a pack for any paper</h3>
+        <p>A pack is one paper turned into lessons, questions, cards and visuals. Claude writes it from a prompt, and the pack tool checks it. Full guide: <span class="mono">paper-study-app/docs/GENERATING-PACKS.md</span>.</p>
+      </div>
+      <ol class="steps">
+        <li><p><strong>Start it from arXiv.</strong> <span class="mono">pack.mjs new &lt;link&gt; --depth use</span> drafts the manifest and section map, and writes the message to send.</p></li>
+        <li><p><strong>Let Claude build it in rounds.</strong> With the generator prompt in a Claude Project, reply “continue” after each round.</p></li>
+        <li><p><strong>Check it.</strong> <span class="mono">pack.mjs validate --strict</span> shows the same issues the app would.</p></li>
+        <li><p><strong>Fix and import.</strong> Paste the issues back, apply Claude's reply with <span class="mono">pack.mjs apply</span>, then import the folder.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Paper Study · Mac, Android and browser · lessons shown from the Attention Is All You Need pack (arXiv 1706.03762)</div>
+</footer>
+
+<script>
+(() => {
+  const TEXT = {
+    simple: "The authors asked: what if we keep only attention? They dropped the step-by-step part completely. They called the new model the Transformer.",
+    full: "The Transformer removes recurrence and convolution and relies only on attention to connect inputs and outputs. Linking any two positions then takes a constant number of operations. The trade-off, in the authors' words, is reduced effective resolution, because attention averages over many positions; multi-head attention (lesson 3) is their fix."
+  };
+  const body = document.getElementById("step-body");
+  const btns = { simple: document.getElementById("lvl-simple"), full: document.getElementById("lvl-full") };
+  let level = "simple";
+  try { const s = localStorage.getItem("ps-level"); if (s === "full" || s === "simple") level = s; } catch (e) {}
+  function show(l, animate) {
+    level = l;
+    for (const k in btns) btns[k].setAttribute("aria-pressed", String(k === l));
+    if (!animate) { body.textContent = TEXT[l]; return; }
+    body.classList.add("swap");
+    setTimeout(() => { body.textContent = TEXT[l]; body.classList.remove("swap"); }, 160);
+    try { localStorage.setItem("ps-level", l); } catch (e) {}
+  }
+  btns.simple.addEventListener("click", () => show("simple", true));
+  btns.full.addEventListener("click", () => show("full", true));
+  show(level, false);
+
+  document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+    const code = document.getElementById(b.dataset.copy);
+    try { await navigator.clipboard.writeText(code.textContent); b.textContent = "Copied"; }
+    catch (e) { const r = document.createRange(); r.selectNodeContents(code); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent = "Selected"; }
+    setTimeout(() => (b.textContent = "Copy"), 1600);
+  }));
+})();
+</script>
