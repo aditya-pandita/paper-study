@@ -7,8 +7,15 @@ DIST="$APPROOT/dist"
 APP="$DIST/Paper Study.app"
 
 cd "$HERE"
-swift build -c release
-BIN="$(swift build -c release --show-bin-path)/PaperStudy"
+# Universal binary (Apple Silicon + Intel), so the app runs on any Mac with macOS 14+.
+# Built per architecture and merged with lipo, because a multi-arch `swift build` needs full Xcode.
+BIN="$(mktemp -d)/PaperStudy"
+PARTS=()
+for T in arm64-apple-macosx14.0 x86_64-apple-macosx14.0; do
+  swift build -c release --triple "$T"
+  PARTS+=("$(swift build -c release --triple "$T" --show-bin-path)/PaperStudy")
+done
+lipo -create "${PARTS[@]}" -output "$BIN"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources/web/lib"

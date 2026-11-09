@@ -343,6 +343,15 @@
   document.getElementById("pick-files").addEventListener("change", (e) => { handleImport(e.target.files); e.target.value = ""; });
   document.getElementById("import-folder").addEventListener("click", (e) => { e.target.closest("details").open = false; pickFolder(); });
   document.getElementById("import-file").addEventListener("click", (e) => { e.target.closest("details").open = false; pickFile(); });
+  // Hosted builds can ship sample packs: window.PAPERSTUDY_SAMPLES = [{ title, url }] (a .pack.json next to the page).
+  const SAMPLES = Array.isArray(window.PAPERSTUDY_SAMPLES) ? window.PAPERSTUDY_SAMPLES : [];
+  async function loadSample(s) {
+    toast(`Loading ${s.title}…`);
+    try {
+      const r = await fetch(s.url); if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      await handleImport([new File([await r.blob()], s.url.split("/").pop(), { type: "application/json" })]);
+    } catch (e) { toast(`Couldn't load the sample (${e.message}). Import a pack instead.`); }
+  }
   if (NATIVE) document.documentElement.classList.add("native");
   // Called by the Mac and Android apps.
   window.PaperStudy = {
@@ -411,8 +420,11 @@
           el("li", {}, el("strong", {}, "Import"), " a study pack made by the pack generator prompt."),
           el("li", {}, el("strong", {}, "Go through four passes"), ": skim, outline, read, master. Each one tells you exactly what to read."),
           el("li", {}, el("strong", {}, "Level up"), ": XP, badges and a streak toward 2-3 papers a week.")),
-        el("button", { class: "btn big", onclick: pickFolder }, "Import a pack folder"),
-        el("p", { class: "small muted" }, "Have a single .pack.json? ", el("button", { class: "link", onclick: pickFile }, "Import that instead"), ".")));
+        ...(SAMPLES.length
+          ? [el("button", { class: "btn big", onclick: () => loadSample(SAMPLES[0]) }, `Try a sample: ${SAMPLES[0].title}`),
+             el("p", { class: "small muted" }, "Or bring your own: ", el("button", { class: "link", onclick: pickFolder }, "import a pack folder"), " or ", el("button", { class: "link", onclick: pickFile }, "a .pack.json"), ".")]
+          : [el("button", { class: "btn big", onclick: pickFolder }, "Import a pack folder"),
+             el("p", { class: "small muted" }, "Have a single .pack.json? ", el("button", { class: "link", onclick: pickFile }, "Import that instead"), ".")])));
       return;
     }
     const totalDue = packs.reduce((n, p) => n + dueCards(p, progress[p.id] || newProgress(p.id)).length, 0);

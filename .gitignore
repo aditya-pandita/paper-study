@@ -15,3 +15,5 @@ local.properties
 # bundles made by `pack.mjs bundle` / `zip` (regenerate from the pack folder)
 /*.pack.json
 /*.zip
+# share kits made for friends (rebuild from dist/)
+share/
