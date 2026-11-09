@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 720" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>How the ideas connect</title>
+<desc>Concept map linking Transformer, encoder, decoder, multi-head attention, scaled dot-product attention, query/key/value, masking, positional encoding, feed-forward, residual and layer norm.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F5E5A"/></marker></defs>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">How the ideas connect</text>
+<g stroke="#5F5E5A" stroke-width="1.8" fill="none" marker-end="url(#a)">
+<path d="M335 124L190 168"/><path d="M465 124L610 168"/>
+<path d="M320 190H262"/><path d="M480 190H538"/>
+<path d="M400 250V212"/>
+<path d="M190 210L322 328"/><path d="M610 210L478 328"/>
+<path d="M660 210V328"/>
+<path d="M400 370V428"/><path d="M400 470V518"/>
+<path d="M130 210V428"/>
+<path d="M125 520V472"/>
+<path d="M700 190H760V616H240V450H212"/>
+</g>
+<g font-size="15" text-anchor="middle">
+<rect x="315" y="84" width="170" height="40" rx="8" fill="#F1EFE8" stroke="#2C2C2A" stroke-width="1.5"/><text x="400" y="109" fill="#2C2C2A" font-weight="700">Transformer</text>
+<rect x="100" y="170" width="160" height="40" rx="8" fill="#F1EFE8" stroke="#2C2C2A" stroke-width="1.5"/><text x="180" y="195" fill="#2C2C2A">Encoder (×6)</text>
+<rect x="540" y="170" width="160" height="40" rx="8" fill="#F1EFE8" stroke="#2C2C2A" stroke-width="1.5"/><text x="620" y="195" fill="#2C2C2A">Decoder (×6)</text>
+<rect x="320" y="170" width="160" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5"/><text x="400" y="195" fill="#0C447C">Embeddings</text>
+<rect x="310" y="250" width="180" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5"/><text x="400" y="275" fill="#0C447C">Positional encoding</text>
+<rect x="300" y="330" width="200" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56"/><text x="400" y="355" fill="#085041">Multi-head attention</text>
+<rect x="580" y="330" width="160" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56"/><text x="660" y="355" fill="#085041">Masking</text>
+<rect x="280" y="430" width="240" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56"/><text x="400" y="455" fill="#085041">Scaled dot-product attention</text>
+<rect x="300" y="520" width="200" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5"/><text x="400" y="545" fill="#0C447C">Query, key, value</text>
+<rect x="40" y="430" width="170" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56"/><text x="125" y="455" fill="#085041">Feed-forward</text>
+<rect x="40" y="522" width="170" height="54" rx="8" fill="#E1F5EE" stroke="#0F6E56"/><text fill="#085041"><tspan x="125" y="545">Residual + norm</tspan><tspan x="125" y="565" font-size="13">around every sub-layer</tspan></text>
+</g>
+<g font-size="13" text-anchor="middle" fill="#2C2C2A">
+<rect x="226" y="120" width="44" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="248" y="134">has</text>
+<rect x="530" y="120" width="44" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="552" y="134">has</text>
+<rect x="266" y="198" width="48" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="290" y="212">feed</text>
+<rect x="486" y="198" width="48" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="510" y="212">feed</text>
+<rect x="408" y="221" width="68" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="442" y="235">added to</text>
+<rect x="196" y="282" width="44" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="218" y="296">uses</text>
+<rect x="560" y="282" width="44" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="582" y="296">uses</text>
+<rect x="668" y="262" width="80" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="708" y="276">self-attn is</text>
+<rect x="408" y="390" width="72" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="444" y="404">runs 8 of</text>
+<rect x="408" y="484" width="74" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="445" y="498">compares</text>
+<rect x="138" y="372" width="44" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="160" y="386">uses</text>
+<rect x="133" y="487" width="56" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="161" y="501">wraps</text>
+<rect x="708" y="400" width="44" height="20" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="730" y="414">uses</text>
+</g>
+<g font-size="13">
+<rect x="24" y="636" width="96" height="24" rx="6" fill="#F1EFE8" stroke="#2C2C2A"/><text x="72" y="653" fill="#2C2C2A" text-anchor="middle">structure</text>
+<rect x="128" y="636" width="96" height="24" rx="6" fill="#E6F1FB" stroke="#185FA5"/><text x="176" y="653" fill="#0C447C" text-anchor="middle">data</text>
+<rect x="232" y="636" width="96" height="24" rx="6" fill="#E1F5EE" stroke="#0F6E56"/><text x="280" y="653" fill="#085041" text-anchor="middle">mechanism</text>
+<rect x="24" y="672" width="752" height="30" rx="6" fill="#F1EFE8"/>
+<text x="400" y="692" fill="#2C2C2A" text-anchor="middle">Summarised from Sec. 3 and Fig. 1, pp. 2-6. Both stacks contain attention and feed-forward.</text>
+</g>
+</svg>

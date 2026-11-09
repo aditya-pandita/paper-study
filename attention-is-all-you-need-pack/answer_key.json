@@ -1,0 +1,42 @@
+{"schema_version": 1, "locked_until": "debrief",
+ "debrief": {
+  "goal": "Replace the recurrent and convolutional layers of sequence-to-sequence models with attention alone, so training can run in parallel across positions and distant words are linked in a constant number of steps, while beating earlier translation quality at lower training cost.",
+  "approach": "An encoder and a decoder, each a stack of 6 identical layers. Every layer has multi-head scaled dot-product attention and a position-wise feed-forward network, each wrapped in a residual connection plus layer normalization. The decoder adds attention over the encoder output and masks its self-attention so outputs depend only on earlier outputs. Sinusoidal positional encodings supply word order. Training uses Adam with a warmup-then-decay learning rate, residual dropout, and label smoothing.",
+  "use_yourself": "Suggestions, not claims of the paper: scaled dot-product and multi-head attention as a reusable building block; the masking trick for any auto-regressive model; the warmup-then-inverse-square-root learning-rate schedule; label smoothing; checkpoint averaging; and the Table 1 style of comparing layers by cost, sequential steps, and path length.",
+  "follow_refs": [
+   "[2] Bahdanau et al. 2014: the attention mechanism this paper builds on (encoder-decoder attention, additive attention).",
+   "[9] Gehring et al. 2017 (ConvS2S): the main convolutional competitor in Table 2 and the source of learned positional embeddings in Table 3 (E).",
+   "[11] He et al. 2016: residual connections, used around every sub-layer.",
+   "[1] Ba et al. 2016: layer normalization, used after every residual connection.",
+   "[18] Kalchbrenner et al. 2017 (ByteNet): the other parallel model compared on path length."
+  ]
+ },
+ "quiz": [
+  {"question_id": "q1", "answer": "Recurrence (and convolution). Without them nothing carries word order, so the model needs positional encodings added to its inputs.", "where": {"page": 6, "ref": "Sec. 3.5"}},
+  {"question_id": "q2", "answer": "More work done in parallel. Recurrence forces O(n) sequential steps per layer; self-attention needs O(1). The paper does not claim fewer parameters or a new loss.", "where": {"page": 6, "ref": "Table 1"}},
+  {"question_id": "q3", "answer": "Yes. Transformer (big) scores 28.4 BLEU vs 26.36 for the best ensemble (ConvS2S), about 2 points higher. Even the base model (27.3) beats every listed ensemble.", "where": {"page": 8, "ref": "Table 2"}},
+  {"question_id": "q4", "answer": "(1) Encoder self-attention: queries, keys, values all from the previous encoder layer. (2) Decoder self-attention: all from the previous decoder layer, masked to earlier positions. (3) Encoder-decoder attention: queries from the previous decoder layer, keys and values from the encoder output.", "where": {"page": 5, "ref": "Sec. 3.2.3"}},
+  {"question_id": "q5", "answer": "The decoder generates outputs one at a time, so position i may only depend on outputs before i. Masking (scores set to −∞), together with shifting the output embeddings by one, enforces this. The encoder sees an input that is fully known, so it needs no mask.", "where": {"page": 3, "ref": "Sec. 3.1"}},
+  {"question_id": "q6", "answer": "It could not use word order, because nothing else in the model encodes position (Sec. 3.5). Example (illustration, not from the paper): 'the dog bit the man' vs 'the man bit the dog' contain the same tokens in a different order.", "where": {"page": 6, "ref": "Sec. 3.5"}},
+  {"question_id": "q7", "answer": "Variance is d_k = 64 (footnote 4). Dividing by √64 = 8 divides the variance by 64, bringing it back to 1. That is the 1/√d_k scaling.", "where": {"page": 4, "ref": "Sec. 3.2.1, footnote 4"}},
+  {"question_id": "q8", "answer": "Each head works in d_model/h = 64 dimensions, so 8 heads together cover 8 × 64 = 512, the same as one full-width head. The paper states the total cost is similar to single-head attention at full dimension.", "where": {"page": 5, "ref": "Sec. 3.2.2"}},
+  {"question_id": "q9", "answer": "Self-attention: n²·d = 2,500 × 512 ≈ 1.3 million. Recurrent: n·d² = 50 × 262,144 ≈ 13.1 million. Self-attention is about 10 times cheaper (illustrative arithmetic; big-O ignores constants). This matches the paper's point that it wins when n < d.", "where": {"page": 7, "ref": "Sec. 4"}},
+  {"question_id": "q10", "answer": "Open question. One alternative visible in Table 3 (B): smaller d_k also cuts parameters (65M to 58M or 60M), so lost capacity could explain the drop. A test: shrink d_k but add the parameters back elsewhere, then compare.", "where": {"page": 9, "ref": "Table 3 (B)"}},
+  {"question_id": "q11", "answer": "No. The paper only shows learned and sinusoidal encodings score about the same on the dev set (Table 3 E). A fair test would train on short sentences and evaluate on longer ones with both encodings.", "where": {"page": 6, "ref": "Sec. 3.5"}},
+  {"question_id": "q12", "answer": "Very long sequences, where n exceeds d (the paper mentions images, audio, and video as future targets). Proposed fix: restricted self-attention over a neighbourhood of size r, cost O(r·n·d), but maximum path length rises to O(n/r).", "where": {"page": 7, "ref": "Sec. 4"}}
+ ],
+ "claim_notes": [
+  {"claim_id": "c1", "note": "'First' is the authors' own claim, qualified with 'to the best of our knowledge' (Sec. 2, p. 2)."},
+  {"claim_id": "c2", "note": "Test set is newstest2014. Compare 28.4 against the ConvS2S Ensemble row (26.36) in Table 2."},
+  {"claim_id": "c3", "note": "Table 2 and the abstract say 41.8; Sec. 6.1 text says 41.0. Check both on pp. 1 and 8. The big EN-FR model used dropout 0.1, not the 0.3 listed for 'big' in Table 3."},
+  {"claim_id": "c4", "note": "FLOPs are the authors' estimate: training time × GPUs × assumed TFLOPS per GPU (footnote 5, p. 8), not a measurement."},
+  {"claim_id": "c5", "note": "These are asymptotic bounds. Table 1 does not give wall-clock times."},
+  {"claim_id": "c6", "note": "Only holds when n < d. For long sequences the n² term dominates; see the restricted self-attention row in Table 1."},
+  {"claim_id": "c7", "note": "The paper says 'we suspect'. No experiment isolates the scaling factor."},
+  {"claim_id": "c8", "note": "Dev set (newstest2013), no checkpoint averaging, single runs. Differences of a few tenths of BLEU may be noise; the paper reports no variance."},
+  {"claim_id": "c9", "note": "Parameters also change in these rows (58M, 60M vs 65M), which is another possible cause."},
+  {"claim_id": "c10", "note": "The extrapolation benefit is a stated hope; no experiment in the paper tests longer sequences."},
+  {"claim_id": "c11", "note": "Read rows (C) and (D) of Table 3. Bigger models also have more parameters and compute, so 'bigger is better' is not a controlled comparison."},
+  {"claim_id": "c12", "note": "Table 4 lists Luong et al. (multi-task, 93.0) and Dyer et al. (generative, 93.3) above 92.7. The text's 'all except RNNG' claim does not match the multi-task row."}
+ ],
+ "answer_visuals": ["v20b"]}

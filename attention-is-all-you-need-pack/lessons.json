@@ -1,0 +1,688 @@
+{
+ "schema_version": 1,
+ "lessons": [
+  {
+   "id": "l0",
+   "title": "The paper at a glance",
+   "why": "The abstract and the conclusion, in plain words: what Ng's first two passes read.",
+   "steps": [
+    {
+     "id": "l0.1",
+     "heading": "What the abstract says",
+     "simple": "Translation models used slow, step-by-step parts. This paper drops them and uses only attention. The new model, the Transformer, translates better and trains faster.",
+     "full": "The best translation models of the time paired an encoder and a decoder built from recurrent or convolutional networks, usually linked by attention. The paper proposes a simpler design, the Transformer, that uses attention alone. On two WMT 2014 translation tasks it gives better quality, runs more in parallel and needs much less training time: 28.4 BLEU on English-German (over 2 points above the previous best, ensembles included) and a single-model record of 41.8 BLEU on English-French after 3.5 days on eight GPUs. It also works for English constituency parsing, with both large and small training sets.",
+     "analogy": null,
+     "visual": "v01",
+     "terms": [
+      "Sequence transduction",
+      "BLEU"
+     ],
+     "source": {
+      "page": 1,
+      "ref": "Abstract"
+     },
+     "check": null,
+     "section": "abstract",
+     "math": false
+    },
+    {
+     "id": "l0.2",
+     "heading": "What the conclusion says",
+     "simple": "The Transformer is the first translation model built only on attention. It trains faster and set new records. The authors want to try it on pictures, sound and video next.",
+     "full": "The conclusion restates the contribution: the first sequence transduction model based entirely on attention, with multi-headed self-attention replacing the recurrent layers of encoder-decoder models. For translation it trains significantly faster than recurrent or convolutional designs and sets a new state of the art on both WMT 2014 tasks; on English-German the best model beats all previously reported ensembles. Future work: other tasks, inputs and outputs beyond text (images, audio, video) with local, restricted attention, and less sequential generation. The code is released in tensor2tensor.",
+     "analogy": null,
+     "visual": null,
+     "terms": [],
+     "source": {
+      "page": 10,
+      "ref": "Sec. 7"
+     },
+     "check": null,
+     "section": "conclusion",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l1",
+   "title": "The problem the paper attacks",
+   "why": "Why a new kind of model was needed in 2017.",
+   "steps": [
+    {
+     "id": "l1.1",
+     "heading": "Translation means turning one sequence into another",
+     "simple": "A translation model reads a sentence and writes a new one. It has two halves. One half reads. The other half writes, one word at a time.",
+     "full": "The paper works on sequence transduction: turning an input sequence of tokens, such as an English sentence, into an output sequence, such as its German translation. The strongest models of the time used an encoder-decoder design. The encoder turns the input into a sequence of vectors. The decoder then produces the output one token at a time, feeding each token it has produced back in as input for the next step. This is called auto-regressive generation.",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Sequence transduction",
+      "Encoder",
+      "Decoder",
+      "Auto-regressive"
+     ],
+     "source": {
+      "page": 2,
+      "ref": "Sec. 3"
+     },
+     "check": null,
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l1.2",
+     "heading": "The bottleneck: one word at a time",
+     "simple": "Older models read words in order. Word 10 must wait for word 9. So training is slow.",
+     "full": "Recurrent networks (RNNs, including LSTMs and GRUs) compute a hidden state for each position from the previous hidden state and the current input. Because every step needs the step before it, the positions of one sentence cannot be computed in parallel. For long sentences, memory limits also cap how many examples fit in one batch. Speed-up tricks such as factorization and conditional computation helped, but the paper's point is that the sequential constraint itself remained.",
+     "analogy": "Like a line of people passing buckets: nobody can pass until the person before them has.",
+     "visual": null,
+     "terms": [
+      "Recurrent neural network (RNN)",
+      "LSTM"
+     ],
+     "source": {
+      "page": 2,
+      "ref": "Sec. 1"
+     },
+     "check": "q2",
+     "section": "intro",
+     "math": false
+    },
+    {
+     "id": "l1.3",
+     "heading": "Attention already existed, as a helper",
+     "simple": "Models already had a trick called attention. When writing a word, look back at the input words that matter. But it was attached to the slow, step-by-step model.",
+     "full": "Attention lets a model connect positions no matter how far apart they are, and it was already standard in translation (Bahdanau et al., ref [2]). But in almost every case it was used together with a recurrent network. Convolutional models such as ByteNet and ConvS2S removed recurrence and computed all positions in parallel. Their weakness: the number of operations needed to link two distant positions grows with the distance between them, linearly for ConvS2S and logarithmically for ByteNet. That makes far-apart relationships harder to learn.",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Attention"
+     ],
+     "source": {
+      "page": 2,
+      "ref": "Sec. 2"
+     },
+     "check": null,
+     "section": "related",
+     "math": false
+    },
+    {
+     "id": "l1.4",
+     "heading": "The bet: attention on its own",
+     "simple": "The authors asked: what if we keep only attention? They dropped the step-by-step part completely. They called the new model the Transformer.",
+     "full": "The Transformer removes recurrence and convolution and relies only on attention to connect inputs and outputs. Linking any two positions then takes a constant number of operations. The trade-off, in the authors' words, is reduced effective resolution, because attention averages over many positions; multi-head attention (lesson 3) is their fix. They report that it reaches a new state of the art in translation after as little as twelve hours of training on eight P100 GPUs.",
+     "analogy": null,
+     "visual": "v01",
+     "terms": [
+      "Self-attention"
+     ],
+     "source": {
+      "page": 2,
+      "ref": "Sec. 1 and 2"
+     },
+     "check": "q1",
+     "section": "intro",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l2",
+   "title": "Attention, the core operation",
+   "why": "Everything else in the paper is built from this one operation.",
+   "steps": [
+    {
+     "id": "l2.1",
+     "heading": "Queries, keys and values",
+     "simple": "Each word asks a question, called a query. Every word also has a label, the key, and some content, the value. A word collects content from the words whose labels best match its question.",
+     "full": "The paper defines attention as a function that takes a query and a set of key-value pairs, all of them vectors, and returns an output vector. The output is a weighted sum of the values. The weight on each value comes from a compatibility function that compares the query with that value's key.",
+     "analogy": "Like a library search: your search words are the query, book titles are the keys, and what is inside the books is the values.",
+     "visual": "v05a",
+     "terms": [
+      "Query, key, value"
+     ],
+     "source": {
+      "page": 3,
+      "ref": "Sec. 3.2"
+     },
+     "check": null,
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l2.2",
+     "heading": "Scoring matches with dot products",
+     "simple": "To score a match, multiply the query and key number by number, then add it all up. A big total means a good match.",
+     "full": "In scaled dot-product attention, each query is compared with every key using a dot product. Queries and keys have d_k numbers each, and values have d_v. In practice all queries are packed into a matrix Q, all keys into K and all values into V, so every score comes out of one matrix multiplication, Q times K-transpose. The paper prefers this to additive attention (which scores with a small neural network) because highly optimized matrix-multiplication code makes it much faster and more memory-efficient.",
+     "analogy": null,
+     "visual": "v05a",
+     "terms": [
+      "Scaled dot-product attention",
+      "Additive attention",
+      "d_k, d_v"
+     ],
+     "source": {
+      "page": 4,
+      "ref": "Sec. 3.2.1"
+     },
+     "check": null,
+     "section": "methods",
+     "math": true
+    },
+    {
+     "id": "l2.3",
+     "heading": "Shrinking the scores",
+     "simple": "Long vectors give very big scores. Very big scores make learning stall. So every score is divided by a fixed number first.",
+     "full": "Each score is divided by the square root of d_k. The authors' reasoning: if the parts of q and k are independent with mean 0 and variance 1, their dot product has variance d_k. So for large d_k the scores get large and push the softmax into regions where gradients are extremely small. The paper presents this as a suspicion, backed by a footnote, and notes that unscaled dot-product attention did worse than additive attention at large d_k in earlier work (ref [3]).",
+     "analogy": "Like turning down a speaker that is so loud you can no longer hear any detail.",
+     "visual": null,
+     "terms": [
+      "Softmax"
+     ],
+     "source": {
+      "page": 4,
+      "ref": "Sec. 3.2.1, footnote 4"
+     },
+     "check": "q7",
+     "section": "methods",
+     "math": true
+    },
+    {
+     "id": "l2.4",
+     "heading": "From scores to weights to output",
+     "simple": "The scores become shares that add up to 100%. Each word then gets a mix of the other words' content, in those shares.",
+     "full": "A softmax turns the scaled scores into weights that are positive and add up to 1. The output for each query is the sum of the value vectors, each multiplied by its weight. In one line, Equation 1: Attention(Q, K, V) = softmax(Q K-transpose / square root of d_k) times V.",
+     "analogy": null,
+     "visual": "orig-fig2a",
+     "terms": [],
+     "source": {
+      "page": 4,
+      "ref": "Eq. 1"
+     },
+     "check": null,
+     "section": "methods",
+     "math": true
+    }
+   ]
+  },
+  {
+   "id": "l3",
+   "title": "Many heads instead of one",
+   "why": "Why the model runs several smaller attentions side by side.",
+   "steps": [
+    {
+     "id": "l3.1",
+     "heading": "Why one attention isn't enough",
+     "simple": "One look can only focus on one kind of thing. Several smaller looks can each focus on something different.",
+     "full": "With a single attention function, the averaging inside it makes it hard to pick up several kinds of relationship at once. Multi-head attention instead projects the queries, keys and values h times, each time with different learned linear projections. It runs attention on each projected version in parallel, joins (concatenates) the results, and projects them once more. This lets the model attend to information from different representation subspaces at different positions.",
+     "analogy": "Like a team of detectives, each checking a different kind of clue, then pooling their notes.",
+     "visual": "v05b",
+     "terms": [
+      "Multi-head attention"
+     ],
+     "source": {
+      "page": 5,
+      "ref": "Sec. 3.2.2"
+     },
+     "check": null,
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l3.2",
+     "heading": "The sizes",
+     "simple": "There are 8 heads. Each one works on 64 numbers. Joined together they make 512 again.",
+     "full": "The paper uses h = 8 heads, each with d_k = d_v = d_model / h = 64. Because each head works in a smaller space, the authors say the total compute is about the same as one attention over the full 512 dimensions. The projection matrices are learned parameters: one set for queries, keys and values per head, plus one output matrix W^O.",
+     "analogy": null,
+     "visual": "orig-fig2b",
+     "terms": [
+      "d_model"
+     ],
+     "source": {
+      "page": 5,
+      "ref": "Sec. 3.2.2"
+     },
+     "check": "q8",
+     "section": "methods",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l4",
+   "title": "Where attention is used, and masking",
+   "why": "The same operation does three different jobs in the model.",
+   "steps": [
+    {
+     "id": "l4.1",
+     "heading": "Three kinds of attention",
+     "simple": "Attention is used in three places. The reader looks at its own sentence. The writer looks at what it has written so far. And the writer looks at the reader's notes.",
+     "full": "(1) Encoder self-attention: queries, keys and values all come from the previous encoder layer, so every input position can look at every input position. (2) Decoder self-attention: the same idea over the output written so far. (3) Encoder-decoder attention: queries come from the previous decoder layer, while keys and values come from the encoder's output. Every output position can therefore look at the whole input, much like the attention in earlier sequence-to-sequence models.",
+     "analogy": null,
+     "visual": "v02",
+     "terms": [
+      "Self-attention"
+     ],
+     "source": {
+      "page": 5,
+      "ref": "Sec. 3.2.3"
+     },
+     "check": "q4",
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l4.2",
+     "heading": "No peeking at later words",
+     "simple": "When the writer works on word 5, it must not see words 6, 7 and 8. So those are hidden from it.",
+     "full": "In training the decoder is given the whole target sentence at once, so its self-attention has to be stopped from looking ahead. The paper sets the scores of these illegal, forward-looking connections to minus infinity before the softmax, so they get zero weight. Together with shifting the output embeddings one position to the right, this makes the prediction for position i depend only on outputs before i, which keeps the model auto-regressive.",
+     "analogy": "Like covering the rest of an answer sheet while you write each line.",
+     "visual": null,
+     "terms": [
+      "Masking"
+     ],
+     "source": {
+      "page": 3,
+      "ref": "Sec. 3.1"
+     },
+     "check": "q5",
+     "section": "methods",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l5",
+   "title": "The rest of each layer",
+   "why": "Attention gathers information; these parts process it and keep deep stacks trainable.",
+   "steps": [
+    {
+     "id": "l5.1",
+     "heading": "A small network after attention",
+     "simple": "After gathering information, each word thinks about it on its own, using a small two-layer network.",
+     "full": "Each encoder and decoder layer also contains a position-wise feed-forward network: two linear transformations with a ReLU in between, FFN(x) = max(0, xW1 + b1)W2 + b2 (Equation 2). It is applied to every position separately with the same weights, though each layer has its own weights. Its input and output have 512 numbers; the inner layer has 2048.",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Position-wise feed-forward network"
+     ],
+     "source": {
+      "page": 5,
+      "ref": "Sec. 3.3, Eq. 2"
+     },
+     "check": null,
+     "section": "methods",
+     "math": true
+    },
+    {
+     "id": "l5.2",
+     "heading": "Shortcuts and tidying up",
+     "simple": "Each block adds its input back to its output. Then it tidies the numbers. This helps tall stacks of layers learn.",
+     "full": "Every sub-layer, attention or feed-forward, is wrapped as LayerNorm(x + Sublayer(x)). That is a residual connection (ref [11]) followed by layer normalization (ref [1]). For the addition to work, every sub-layer and both embedding layers output vectors of the same size, d_model = 512.",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Residual connection",
+      "Layer normalization"
+     ],
+     "source": {
+      "page": 3,
+      "ref": "Sec. 3.1"
+     },
+     "check": null,
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l5.3",
+     "heading": "Stacks of six",
+     "simple": "The reader is six identical layers stacked up. So is the writer.",
+     "full": "The encoder is a stack of N = 6 identical layers, each with two sub-layers: self-attention, then feed-forward. The decoder is also 6 layers, with a third sub-layer between those two that attends over the encoder's output.",
+     "analogy": null,
+     "visual": "orig-fig1",
+     "terms": [],
+     "source": {
+      "page": 3,
+      "ref": "Sec. 3.1, Fig. 1"
+     },
+     "check": null,
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l5.4",
+     "heading": "Words in, words out",
+     "simple": "At the start, each word becomes a list of numbers. At the end, the model gives every possible next word a score.",
+     "full": "Learned embeddings turn input and output tokens into vectors of size d_model. At the top of the decoder, a linear layer and a softmax turn the output into probabilities for the next token. The two embedding layers and this final linear layer share one weight matrix (ref [30]); inside the embedding layers those weights are multiplied by the square root of d_model.",
+     "analogy": null,
+     "visual": "v04",
+     "terms": [
+      "Embedding"
+     ],
+     "source": {
+      "page": 5,
+      "ref": "Sec. 3.4"
+     },
+     "check": null,
+     "section": "methods",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l6",
+   "title": "Word order without reading in order",
+   "why": "Attention sees all words at once, so order has to be added back in.",
+   "steps": [
+    {
+     "id": "l6.1",
+     "heading": "The problem",
+     "simple": "Attention looks at all the words together. On its own, it cannot tell which word came first.",
+     "full": "With no recurrence and no convolution, nothing in the model carries the order of the tokens. So the paper adds a positional encoding to each input embedding at the bottom of both the encoder and the decoder stacks. The encoding has the same size as the embedding, d_model, so the two can simply be added.",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Positional encoding"
+     ],
+     "source": {
+      "page": 6,
+      "ref": "Sec. 3.5"
+     },
+     "check": "q6",
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l6.2",
+     "heading": "Waves of different speeds",
+     "simple": "Each position gets a pattern made of waves. Some waves wiggle fast, some slowly. Together they mark the position.",
+     "full": "Each dimension of the encoding is a sine or a cosine of the position, at a different frequency: PE(pos, 2i) = sin(pos / 10000^(2i/d_model)) and PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model)). The wavelengths form a geometric progression from 2π to 10000·2π. The authors chose this because, for any fixed offset k, PE(pos + k) is a linear function of PE(pos). They hypothesised that this would make it easy to attend by relative position.",
+     "analogy": "Like a clock: the second, minute and hour hands together pin down the exact time.",
+     "visual": "v05c",
+     "terms": [],
+     "source": {
+      "page": 6,
+      "ref": "Sec. 3.5"
+     },
+     "check": null,
+     "section": "methods",
+     "math": true
+    },
+    {
+     "id": "l6.3",
+     "heading": "Fixed waves or learned?",
+     "simple": "They also tried letting the model learn its own position tags. It worked about the same.",
+     "full": "Learned positional embeddings gave nearly identical results to the sinusoids (Table 3, row E). The authors kept the sinusoids because they may let the model handle sequences longer than any seen in training. The paper does not test this.",
+     "analogy": null,
+     "visual": null,
+     "terms": [],
+     "source": {
+      "page": 6,
+      "ref": "Sec. 3.5"
+     },
+     "check": "q11",
+     "section": "methods",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l7",
+   "title": "Why self-attention: the argument",
+   "why": "The paper's case for attention, in three measures.",
+   "steps": [
+    {
+     "id": "l7.1",
+     "heading": "Three things to compare",
+     "simple": "They compare three things: how much work each layer does, how much can happen at once, and how far information must travel.",
+     "full": "Section 4 compares self-attention with recurrent and convolutional layers on three measures: total compute per layer; how much can run in parallel, measured as the minimum number of sequential operations; and the longest path a signal must travel between any two positions. Shorter paths make long-range relationships easier to learn (ref [12]).",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Maximum path length"
+     ],
+     "source": {
+      "page": 6,
+      "ref": "Sec. 4"
+     },
+     "check": null,
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l7.2",
+     "heading": "What Table 1 says",
+     "simple": "Attention links any two words in one step. Step-by-step models need as many steps as the sentence is long. For normal sentences, attention is cheaper too.",
+     "full": "Self-attention: O(n²·d) compute per layer, O(1) sequential operations, O(1) maximum path. Recurrent: O(n·d²), O(n), O(n). Convolutional: O(k·n·d²), O(1), and O(log_k n) with dilated convolutions. Here n is the sequence length, d the representation size and k the kernel width. Self-attention is cheaper than recurrence when n is smaller than d, which the authors say is usually true for sentences split into word-pieces or byte-pairs.",
+     "analogy": "Like a group chat instead of a game of telephone.",
+     "visual": "v06",
+     "terms": [],
+     "source": {
+      "page": 6,
+      "ref": "Table 1"
+     },
+     "check": "q9",
+     "section": "methods",
+     "math": true
+    },
+    {
+     "id": "l7.3",
+     "heading": "A bonus: you can look inside",
+     "simple": "You can see what each head pays attention to. Some heads seem to link a word like 'its' to the thing it means.",
+     "full": "Attention weights can be inspected directly. In the appendix, different heads appear to learn different jobs. Some follow long-distance links, such as joining 'making' to 'more difficult' (Fig. 3), and two appear to work out what the pronoun 'its' refers to (Fig. 4). The authors describe these as observations from examples, not measurements.",
+     "analogy": null,
+     "visual": null,
+     "terms": [],
+     "source": {
+      "page": 13,
+      "ref": "Fig. 3"
+     },
+     "check": null,
+     "section": "appendix",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l8",
+   "title": "How it was trained",
+   "why": "The training recipe, much of which is still used today.",
+   "steps": [
+    {
+     "id": "l8.1",
+     "heading": "Data",
+     "simple": "They trained on millions of sentence pairs. Words were split into smaller pieces.",
+     "full": "English-German: WMT 2014, about 4.5 million sentence pairs, encoded with byte-pair encoding into a shared vocabulary of about 37,000 tokens. English-French: WMT 2014, 36 million sentences, with a 32,000 word-piece vocabulary. Sentence pairs were batched by approximate length, about 25,000 source tokens and 25,000 target tokens per batch.",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Byte-pair encoding",
+      "Word-piece"
+     ],
+     "source": {
+      "page": 7,
+      "ref": "Sec. 5.1"
+     },
+     "check": null,
+     "section": "experiments",
+     "math": false
+    },
+    {
+     "id": "l8.2",
+     "heading": "Hardware and time",
+     "simple": "The small model trained in about half a day on 8 graphics cards. The big one took 3.5 days.",
+     "full": "Training ran on one machine with 8 NVIDIA P100 GPUs. The base model took about 0.4 seconds per step and was trained for 100,000 steps, about 12 hours. The big model took 1.0 second per step and trained for 300,000 steps, 3.5 days.",
+     "analogy": null,
+     "visual": null,
+     "terms": [],
+     "source": {
+      "page": 7,
+      "ref": "Sec. 5.2"
+     },
+     "check": null,
+     "section": "experiments",
+     "math": false
+    },
+    {
+     "id": "l8.3",
+     "heading": "Warm up, then slow down",
+     "simple": "Learning starts gently and speeds up. Then it slowly calms down.",
+     "full": "The optimizer is Adam with β1 = 0.9, β2 = 0.98 and ε = 10⁻⁹. The learning rate rises linearly for the first 4,000 steps (the warmup), then falls in proportion to one over the square root of the step number (Equation 3).",
+     "analogy": "Like warming up before a run, then easing your pace.",
+     "visual": null,
+     "terms": [
+      "Warmup"
+     ],
+     "source": {
+      "page": 7,
+      "ref": "Eq. 3"
+     },
+     "check": null,
+     "section": "experiments",
+     "math": true
+    },
+    {
+     "id": "l8.4",
+     "heading": "Keeping it from memorising",
+     "simple": "Two tricks stop it from just memorising. Parts are switched off at random. And it is never allowed to be 100% sure.",
+     "full": "Dropout of 0.1 is applied to the output of each sub-layer before the residual addition, and to the sums of embeddings and positional encodings. Label smoothing of 0.1 trains against slightly softened targets. The paper notes this hurts perplexity, because the model learns to be less sure, but improves accuracy and BLEU.",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Residual dropout",
+      "Label smoothing",
+      "Perplexity"
+     ],
+     "source": {
+      "page": 8,
+      "ref": "Sec. 5.4"
+     },
+     "check": null,
+     "section": "experiments",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l9",
+   "title": "Results",
+   "why": "What the Transformer achieved, and what each part contributed.",
+   "steps": [
+    {
+     "id": "l9.1",
+     "heading": "Translation scores",
+     "simple": "It beat every earlier English-to-German model, even teams of models working together. It was also the best single model for English-to-French. And it cost far less to train.",
+     "full": "On WMT 2014 English-German, Transformer (big) scores 28.4 BLEU, more than 2 points above the best earlier result, ensembles included. Even the base model (27.3) beats all earlier models and ensembles, at a fraction of their training cost. On English-French, the big model sets a new single-model best: 41.8 BLEU in Table 2 and the abstract, though the text of Sec. 6.1 says 41.0. That was at under a quarter of the previous best model's training cost. Decoding used beam search (beam size 4, length penalty 0.6) and averaged checkpoints.",
+     "analogy": null,
+     "visual": "v03",
+     "terms": [
+      "BLEU",
+      "Ensemble",
+      "Beam search",
+      "Checkpoint averaging"
+     ],
+     "source": {
+      "page": 8,
+      "ref": "Table 2, Sec. 6.1"
+     },
+     "check": "q3",
+     "section": "experiments",
+     "math": false
+    },
+    {
+     "id": "l9.2",
+     "heading": "What each part contributes",
+     "simple": "They changed one part at a time to see what matters. Several heads beat one. Small keys hurt. Bigger models and dropout helped.",
+     "full": "Table 3 changes the base model one setting at a time and measures English-German on the development set (newstest2013). One attention head is 0.9 BLEU worse than the best setting, and quality also drops with too many heads. Shrinking the key size d_k hurts. Bigger models do better, and dropout clearly helps against over-fitting. Learned positional embeddings perform about the same as sinusoids. Tip: Practice has a predict-first chart for the heads result if you'd like to guess before reading the numbers.",
+     "analogy": null,
+     "visual": null,
+     "terms": [],
+     "source": {
+      "page": 9,
+      "ref": "Table 3, Sec. 6.2"
+     },
+     "check": "q10",
+     "section": "experiments",
+     "math": false
+    },
+    {
+     "id": "l9.3",
+     "heading": "Beyond translation: parsing",
+     "simple": "They also tried a different job: drawing the grammar tree of a sentence. It did well there too, with little tuning.",
+     "full": "A 4-layer Transformer with d_model = 1024 was trained on English constituency parsing: about 40,000 WSJ sentences, and a semi-supervised version with about 17 million. It reached 91.3 F1 (WSJ only) and 92.7 F1 (semi-supervised), with little task-specific tuning. Unlike earlier RNN sequence-to-sequence models, it beat the BerkeleyParser even with only the WSJ data. The authors say it beats all previous models except the RNN Grammar; note that Table 4 also lists a multi-task model at 93.0.",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Constituency parsing"
+     ],
+     "source": {
+      "page": 10,
+      "ref": "Table 4, Sec. 6.3"
+     },
+     "check": null,
+     "section": "experiments",
+     "math": false
+    }
+   ]
+  },
+  {
+   "id": "l10",
+   "title": "Limits and what came next",
+   "why": "What the paper itself says is unsolved.",
+   "steps": [
+    {
+     "id": "l10.1",
+     "heading": "Cost that grows with length",
+     "simple": "Every word looks at every other word. Double the sentence and the work roughly quadruples. That gets expensive for very long inputs.",
+     "full": "Self-attention costs O(n²·d) per layer, so it becomes expensive when sequences are long. The paper suggests restricting each position to a neighbourhood of size r. That cuts the cost to O(r·n·d) but raises the maximum path length to O(n/r), and the authors leave it to future work. The averaging inside attention also lowers effective resolution, which multi-head attention only partly offsets (Sec. 2).",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "Restricted self-attention"
+     ],
+     "source": {
+      "page": 7,
+      "ref": "Sec. 4"
+     },
+     "check": "q12",
+     "section": "methods",
+     "math": false
+    },
+    {
+     "id": "l10.2",
+     "heading": "What the authors planned next",
+     "simple": "They wanted to try it on pictures, sound and video. And they wanted to make writing faster too.",
+     "full": "The conclusion lists plans to apply attention-based models to other tasks and to inputs and outputs beyond text, such as images, audio and video, using local, restricted attention for large inputs. Making generation less sequential is another stated goal. The training and evaluation code was released in the tensor2tensor library.",
+     "analogy": null,
+     "visual": null,
+     "terms": [],
+     "source": {
+      "page": 10,
+      "ref": "Sec. 7"
+     },
+     "check": null,
+     "section": "conclusion",
+     "math": false
+    },
+    {
+     "id": "l10.3",
+     "heading": "Reading the claims carefully",
+     "simple": "Check the numbers yourself. The paper gives two different French scores. Most results come from a single training run.",
+     "full": "Pack note, not a claim of the paper: the English-French score appears as 41.8 (Table 2) and 41.0 (Sec. 6.1 text). The ablations in Table 3 are single runs with no error bars, so differences of a few tenths of a BLEU point may be noise. Training costs in FLOPs are the authors' estimates from time, GPU count and assumed GPU speed (footnote 5).",
+     "analogy": null,
+     "visual": null,
+     "terms": [
+      "FLOPs"
+     ],
+     "source": {
+      "page": 8,
+      "ref": "Table 2, Sec. 6.1, footnote 5"
+     },
+     "check": null,
+     "section": "experiments",
+     "math": false
+    }
+   ]
+  }
+ ]
+}

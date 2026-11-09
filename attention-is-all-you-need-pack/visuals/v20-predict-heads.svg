@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>Predict: dev BLEU vs number of heads</title>
+<desc>Empty bar chart with five slots for 1, 4, 8, 16 and 32 heads, each with a question mark, y-axis dev BLEU from 0 to 30.</desc>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">Predict: how does quality change with the number of heads?</text>
+<rect x="24" y="76" width="752" height="434" rx="8" fill="#F1EFE8"/>
+<rect x="40" y="88" width="110" height="26" rx="6" fill="#FFFFFF" stroke="#5F5E5A"/>
+<text x="95" y="106" font-size="13" fill="#2C2C2A" text-anchor="middle">Dev BLEU</text>
+<path d="M120 130V420H740" stroke="#5F5E5A" stroke-width="1.5" fill="none"/>
+<path d="M114 420H120M114 323.3H120M114 226.7H120M114 130H120" stroke="#5F5E5A" stroke-width="1.5" fill="none"/>
+<g font-size="13" fill="#2C2C2A" text-anchor="end">
+<text x="108" y="424">0</text><text x="108" y="328">10</text><text x="108" y="231">20</text><text x="108" y="134">30</text>
+</g>
+<g stroke="#5F5E5A" stroke-dasharray="5 4" fill="#FFFFFF">
+<rect x="145" y="130" width="70" height="290"/><rect x="265" y="130" width="70" height="290"/><rect x="385" y="130" width="70" height="290"/><rect x="505" y="130" width="70" height="290"/><rect x="625" y="130" width="70" height="290"/>
+</g>
+<g font-size="20" font-weight="600" fill="#5F5E5A" text-anchor="middle">
+<text x="180" y="282">?</text><text x="300" y="282">?</text><text x="420" y="282">?</text><text x="540" y="282">?</text><text x="660" y="282">?</text>
+</g>
+<g font-size="15" fill="#2C2C2A" text-anchor="middle">
+<text x="180" y="444">1 head</text><text x="300" y="444">4 heads</text><text x="420" y="444">8 heads</text><text x="540" y="444">16 heads</text><text x="660" y="444">32 heads</text>
+</g>
+<g font-size="13" fill="#2C2C2A" text-anchor="middle">
+<text x="180" y="463">d_k = 512</text><text x="300" y="463">d_k = 128</text><text x="420" y="463">d_k = 64</text><text x="540" y="463">d_k = 32</text><text x="660" y="463">d_k = 16</text>
+<text x="430" y="494">Number of heads h (size per head shrinks, total compute stays the same)</text>
+</g>
+<rect x="24" y="522" width="752" height="34" rx="6" fill="#F1EFE8"/>
+<text x="400" y="544" font-size="13" fill="#2C2C2A" text-anchor="middle">Sketch a bar in each slot. Redrawn from Table 3 rows (A), p. 9, with the values hidden.</text>
+</svg>

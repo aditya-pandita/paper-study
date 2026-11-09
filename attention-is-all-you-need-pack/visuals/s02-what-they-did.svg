@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>What the paper did</title>
+<desc>Three panels: old models read one word at a time; the new model lets all words look at each other; it translated better and trained faster.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F5E5A"/></marker></defs>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">What the paper did, in three pictures</text>
+<rect x="24" y="80" width="240" height="250" rx="12" fill="#FAECE7" stroke="#993C1D"/>
+<rect x="280" y="80" width="240" height="250" rx="12" fill="#E1F5EE" stroke="#0F6E56"/>
+<rect x="536" y="80" width="240" height="250" rx="12" fill="#FAEEDA" stroke="#854F0B"/>
+<g font-size="15" font-weight="700" text-anchor="middle">
+<text x="144" y="108" fill="#712B13">1. Before</text><text x="400" y="108" fill="#085041">2. The idea</text><text x="656" y="108" fill="#633806">3. The result</text>
+</g>
+<g font-size="13" text-anchor="middle">
+<rect x="40" y="170" width="56" height="34" rx="6" fill="#FFFFFF" stroke="#993C1D"/><text x="68" y="192" fill="#712B13">The</text>
+<rect x="116" y="170" width="56" height="34" rx="6" fill="#FFFFFF" stroke="#993C1D"/><text x="144" y="192" fill="#712B13">cat</text>
+<rect x="192" y="170" width="56" height="34" rx="6" fill="#FFFFFF" stroke="#993C1D"/><text x="220" y="192" fill="#712B13">sat</text>
+<rect x="296" y="170" width="56" height="34" rx="6" fill="#FFFFFF" stroke="#0F6E56"/><text x="324" y="192" fill="#085041">The</text>
+<rect x="372" y="170" width="56" height="34" rx="6" fill="#FFFFFF" stroke="#0F6E56"/><text x="400" y="192" fill="#085041">cat</text>
+<rect x="448" y="170" width="56" height="34" rx="6" fill="#FFFFFF" stroke="#0F6E56"/><text x="476" y="192" fill="#085041">sat</text>
+</g>
+<g stroke="#993C1D" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M98 187H114"/><path d="M174 187H190"/></g>
+<g stroke="#0F6E56" stroke-width="2" fill="none"><path d="M324 168C324 136 400 136 400 168"/><path d="M400 168C400 136 476 136 476 168"/><path d="M324 206C324 248 476 248 476 206"/></g>
+<g font-size="15" text-anchor="middle">
+<rect x="568" y="140" width="176" height="44" rx="8" fill="#FFFFFF" stroke="#854F0B"/><text x="656" y="167" fill="#633806">Better translations</text>
+<rect x="568" y="198" width="176" height="44" rx="8" fill="#FFFFFF" stroke="#854F0B"/><text x="656" y="225" fill="#633806">Less training time</text>
+<text fill="#712B13"><tspan x="144" y="276">Reads one word,</tspan><tspan x="144" y="298">then the next. Slow.</tspan></text>
+<text fill="#085041"><tspan x="400" y="276">Every word looks at</tspan><tspan x="400" y="298">every other word.</tspan></text>
+<text fill="#633806"><tspan x="656" y="276">Beat the best models</tspan><tspan x="656" y="298">of its day.</tspan></text>
+</g>
+<rect x="24" y="346" width="752" height="30" rx="6" fill="#F1EFE8"/>
+<text x="400" y="366" font-size="13" fill="#2C2C2A" text-anchor="middle">Simplified from the Abstract, p. 1, and Table 2, p. 8. Example words are illustrative.</text>
+</svg>

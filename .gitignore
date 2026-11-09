@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+# Claude Code session settings
+.claude/
+# build outputs (rebuild with build.sh / gradlew)
+dist/
+.build/
+.gradle/
+build/
+local.properties
+*.apk
+# pack tool: downloaded papers stay out of git, as they stay out of packs
+*-pack.source/
+*.backups/
+# bundles made by `pack.mjs bundle` / `zip` (regenerate from the pack folder)
+/*.pack.json
+/*.zip

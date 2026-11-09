@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>What it builds on</title>
+<desc>Left to right: seq2seq and attention foundations, ResNet and LayerNorm methods used, ByteNet and ConvS2S baselines, leading to the Transformer.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F5E5A"/></marker></defs>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">What the Transformer builds on</text>
+<rect x="24" y="80" width="236" height="250" rx="12" fill="#E6F1FB" stroke="#185FA5"/>
+<rect x="282" y="80" width="236" height="250" rx="12" fill="#E1F5EE" stroke="#0F6E56"/>
+<rect x="540" y="80" width="236" height="250" rx="12" fill="#F1EFE8" stroke="#5F5E5A"/>
+<g font-size="15" font-weight="700" text-anchor="middle">
+<text x="142" y="106" fill="#0C447C">Foundations</text>
+<text x="400" y="106" fill="#085041">Methods it reuses</text>
+<text x="658" y="106" fill="#2C2C2A">Baselines it beat</text>
+</g>
+<g font-size="13" text-anchor="middle">
+<rect x="36" y="120" width="212" height="96" rx="8" fill="#FFFFFF" stroke="#185FA5"/>
+<text fill="#0C447C"><tspan x="142" y="146" font-size="15" font-weight="700">[35] Seq2seq, 2014</tspan><tspan x="142" y="170">the encoder-decoder</tspan><tspan x="142" y="188">setup it keeps</tspan></text>
+<rect x="36" y="224" width="212" height="96" rx="8" fill="#FFFFFF" stroke="#185FA5"/>
+<text fill="#0C447C"><tspan x="142" y="250" font-size="15" font-weight="700">[2] Bahdanau, 2014</tspan><tspan x="142" y="274">attention for translation,</tspan><tspan x="142" y="292">now the whole model</tspan></text>
+<rect x="294" y="120" width="212" height="96" rx="8" fill="#FFFFFF" stroke="#0F6E56"/>
+<text fill="#085041"><tspan x="400" y="146" font-size="15" font-weight="700">[11] ResNet, 2016</tspan><tspan x="400" y="170">residual connection</tspan><tspan x="400" y="188">around every sub-layer</tspan></text>
+<rect x="294" y="224" width="212" height="96" rx="8" fill="#FFFFFF" stroke="#0F6E56"/>
+<text fill="#085041"><tspan x="400" y="250" font-size="15" font-weight="700">[1] Layer norm, 2016</tspan><tspan x="400" y="274">applied after each</tspan><tspan x="400" y="292">residual addition</tspan></text>
+<rect x="552" y="120" width="212" height="96" rx="8" fill="#FFFFFF" stroke="#5F5E5A"/>
+<text fill="#2C2C2A"><tspan x="658" y="146" font-size="15" font-weight="700">[18] ByteNet, 2017</tspan><tspan x="658" y="170">parallel, but path grows</tspan><tspan x="658" y="188">with log of distance</tspan></text>
+<rect x="552" y="224" width="212" height="96" rx="8" fill="#FFFFFF" stroke="#5F5E5A"/>
+<text fill="#2C2C2A"><tspan x="658" y="250" font-size="15" font-weight="700">[9] ConvS2S, 2017</tspan><tspan x="658" y="274">parallel, but path grows</tspan><tspan x="658" y="292">linearly with distance</tspan></text>
+</g>
+<g stroke="#5F5E5A" stroke-width="2" fill="none" marker-end="url(#a)">
+<path d="M142 332V372H250V398"/><path d="M400 332V398"/><path d="M658 332V372H550V398"/>
+</g>
+<g font-size="13" text-anchor="middle" fill="#2C2C2A">
+<rect x="150" y="342" width="74" height="22" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="187" y="357">built on</text>
+<rect x="408" y="352" width="64" height="22" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="440" y="367">reuses</text>
+<rect x="566" y="342" width="84" height="22" rx="5" fill="#FFFFFF" stroke="#D3D1C7"/><text x="608" y="357">beats them</text>
+</g>
+<rect x="200" y="400" width="400" height="64" rx="10" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.5"/>
+<text fill="#633806" text-anchor="middle"><tspan x="400" y="426" font-size="15" font-weight="700">Transformer, 2017</tspan><tspan x="400" y="448" font-size="13">attention only: no recurrence, no convolution</tspan></text>
+<rect x="24" y="480" width="752" height="44" rx="6" fill="#F1EFE8"/>
+<text font-size="13" fill="#2C2C2A" text-anchor="middle"><tspan x="400" y="498">[n] = the paper's reference numbers (see refs.json). Sources: Sec. 1-3, pp. 2-3;</tspan><tspan x="400" y="516">baselines from Sec. 2, p. 2 and Table 2, p. 8.</tspan></text>
+</svg>

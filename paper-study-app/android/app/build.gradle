@@ -1,0 +1,42 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "local.paperstudy.android"
+    compileSdk 37
+
+    defaultConfig {
+        applicationId "local.paperstudy.android"
+        minSdk 26
+        targetSdk 37
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            // Signed with the debug key so the APK installs locally; use your own key to publish.
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation "androidx.webkit:webkit:1.18.0"
+}
+
+// The study screens live once, in paper-study-app/. Copy them into the APK's assets on every build.
+def copyWeb = tasks.register("copyWebAssets", Sync) {
+    from(rootProject.file("..")) {
+        include "index.html", "app.js", "style.css", "lib/validate.js", "lib/fixes.js"
+    }
+    into layout.projectDirectory.dir("src/main/assets/web")
+}
+tasks.named("preBuild") { dependsOn copyWeb }

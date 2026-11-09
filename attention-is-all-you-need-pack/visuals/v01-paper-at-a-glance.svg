@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>Paper at a glance</title>
+<desc>Five boxes left to right: problem (RNNs are sequential), idea (attention only), how (multi-head self-attention plus positional encoding), result (28.4 and 41.8 BLEU), limits (quadratic cost, added position).</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F5E5A"/></marker></defs>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">Attention Is All You Need, at a glance</text>
+<g font-size="13" text-anchor="middle">
+<rect x="24" y="84" width="132" height="176" rx="10" fill="#FAECE7" stroke="#993C1D"/>
+<text x="90" y="112" font-size="15" font-weight="600" fill="#712B13">Problem</text>
+<text fill="#712B13"><tspan x="90" y="150">RNNs read words</tspan><tspan x="90" y="170">one at a time,</tspan><tspan x="90" y="190">so training</tspan><tspan x="90" y="210">cannot run in</tspan><tspan x="90" y="230">parallel</tspan></text>
+<rect x="179" y="84" width="132" height="176" rx="10" fill="#E1F5EE" stroke="#0F6E56"/>
+<text x="245" y="112" font-size="15" font-weight="600" fill="#085041">Idea</text>
+<text fill="#085041"><tspan x="245" y="150">Drop recurrence</tspan><tspan x="245" y="170">and convolution.</tspan><tspan x="245" y="190">Use attention</tspan><tspan x="245" y="210">only</tspan></text>
+<rect x="334" y="84" width="132" height="176" rx="10" fill="#E1F5EE" stroke="#0F6E56"/>
+<text x="400" y="112" font-size="15" font-weight="600" fill="#085041">How</text>
+<text fill="#085041"><tspan x="400" y="150">Multi-head</tspan><tspan x="400" y="170">self-attention,</tspan><tspan x="400" y="190">feed-forward,</tspan><tspan x="400" y="210">position codes,</tspan><tspan x="400" y="230">6 + 6 layers</tspan></text>
+<rect x="489" y="84" width="132" height="176" rx="10" fill="#FAEEDA" stroke="#854F0B"/>
+<text x="555" y="112" font-size="15" font-weight="600" fill="#633806">Result</text>
+<text fill="#633806"><tspan x="555" y="150">28.4 BLEU EN-DE</tspan><tspan x="555" y="170">41.8 BLEU EN-FR</tspan><tspan x="555" y="190">at a fraction</tspan><tspan x="555" y="210">of earlier</tspan><tspan x="555" y="230">training cost</tspan></text>
+<rect x="644" y="84" width="132" height="176" rx="10" fill="#FAECE7" stroke="#993C1D"/>
+<text x="710" y="112" font-size="15" font-weight="600" fill="#712B13">Limits</text>
+<text fill="#712B13"><tspan x="710" y="150">Cost grows with</tspan><tspan x="710" y="170">length squared.</tspan><tspan x="710" y="190">Word order must</tspan><tspan x="710" y="210">be added in</tspan></text>
+</g>
+<g stroke="#5F5E5A" stroke-width="2" fill="none" marker-end="url(#a)">
+<path d="M158 172H176"/><path d="M313 172H331"/><path d="M468 172H486"/><path d="M623 172H641"/>
+</g>
+<g font-size="13">
+<rect x="24" y="276" width="110" height="26" rx="6" fill="#FAECE7" stroke="#993C1D"/><text x="79" y="294" fill="#712B13" text-anchor="middle">problem, limit</text>
+<rect x="144" y="276" width="80" height="26" rx="6" fill="#E1F5EE" stroke="#0F6E56"/><text x="184" y="294" fill="#085041" text-anchor="middle">method</text>
+<rect x="234" y="276" width="70" height="26" rx="6" fill="#FAEEDA" stroke="#854F0B"/><text x="269" y="294" fill="#633806" text-anchor="middle">result</text>
+<rect x="24" y="318" width="752" height="38" rx="6" fill="#F1EFE8"/>
+<text x="400" y="342" fill="#2C2C2A" text-anchor="middle">Summarised from Abstract p. 1, Table 2 p. 8, Table 1 p. 6, Sec. 3.5 p. 6</text>
+</g>
+</svg>

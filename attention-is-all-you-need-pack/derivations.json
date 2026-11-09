@@ -1,0 +1,4 @@
+{"schema_version": 1, "derivations": [
+  {"id": "d1", "what": "Show that if the components of q and k are independent with mean 0 and variance 1, then q·k has mean 0 and variance d_k.", "where": {"page": 4, "ref": "Sec. 3.2.1, footnote 4"}, "hint_step": "Write q·k as a sum of d_k terms q_i·k_i. Work out the mean and variance of ONE term first, using independence."},
+  {"id": "d2", "what": "Show that for a fixed offset k, the sinusoidal encoding PE(pos+k) can be written as a linear function of PE(pos).", "where": {"page": 6, "ref": "Sec. 3.5"}, "hint_step": "Take one sin/cos pair with the same frequency ω and apply the angle-addition formulas to sin(ω·pos + ω·k) and cos(ω·pos + ω·k)."}
+]}

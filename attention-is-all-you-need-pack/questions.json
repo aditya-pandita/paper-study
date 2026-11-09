@@ -1,0 +1,27 @@
+{"schema_version": 1,
+ "pass1": [
+  {"id": "q1", "type": "predict", "text": "The title says attention is all you need. Before reading the method: which standard part of 2017 translation models do you think they removed, and what does a model lose about a sentence once that part is gone?"},
+  {"id": "q2", "type": "predict", "text": "The abstract claims better quality AND less training time. Predict where the speed comes from: fewer parameters, more work done in parallel, or a better loss function. Say why you picked it."},
+  {"id": "q3", "type": "predict", "text": "Read only the row names of Table 2 (p. 8), not the numbers. Predict: can a single Transformer beat ensembles of older models on English-German? If yes, by roughly how many BLEU points?"}
+ ],
+ "pass2": [
+  {"id": "q4", "type": "explain", "text": "Using Figure 1, explain the three different places the model uses attention. For each one, say where the queries come from and where the keys and values come from."},
+  {"id": "q5", "type": "explain", "text": "Explain why the decoder's self-attention has to be masked while the encoder's self-attention does not."},
+  {"id": "q6", "type": "predict", "text": "Suppose you deleted the positional encodings and changed nothing else. Predict what the model could no longer tell apart, and give two short sentences it would confuse."}
+ ],
+ "pass3": [
+  {"id": "q7", "type": "test", "text": "Assume each component of q and k is independent with mean 0 and variance 1, and d_k = 64. What is the variance of q·k? What do you divide by to bring it back to 1?"},
+  {"id": "q8", "type": "explain", "text": "The base model uses 8 heads with d_k = d_v = 64 instead of 1 head with d_k = d_v = 512. Explain why the total compute stays about the same."},
+  {"id": "q9", "type": "test", "text": "Using the per-layer complexities in Table 1, compare self-attention and a recurrent layer for a sentence of n = 50 tokens with d = 512. Which is cheaper per layer, and by roughly what factor?"}
+ ],
+ "pass4": [
+  {"id": "q10", "type": "explain", "text": "Table 3 rows (B) show that a smaller key size d_k hurts quality, and the authors suggest a better compatibility function might help. Look at the other columns of those rows. What other explanation fits, and what experiment would tell the two apart?"},
+  {"id": "q11", "type": "explain", "text": "The authors kept sinusoidal positional encodings partly because they may let the model handle longer sentences than it saw in training. Does anything in the paper test this? What would a fair test look like?"},
+  {"id": "q12", "type": "test", "text": "Self-attention cost grows with the square of sequence length. Name the kind of input where this makes the Transformer a poor fit, and state the fix the paper itself proposes, including what that fix costs."}
+ ],
+ "debrief": [
+  {"id": "qd1", "key": "goal", "text": "What were the authors trying to accomplish?"},
+  {"id": "qd2", "key": "approach", "text": "What are the key elements of the approach?"},
+  {"id": "qd3", "key": "use_yourself", "text": "What can you use yourself?"},
+  {"id": "qd4", "key": "follow_refs", "text": "Which references do you want to follow, and why?"}
+ ]}

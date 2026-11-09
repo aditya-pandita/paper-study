@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 660" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>Decoding Equation 1</title>
+<desc>Attention(Q, K, V) = softmax(Q K-transpose over root d_k) V, with each symbol labelled in words and a one-line plain reading.</desc>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">Equation 1, symbol by symbol</text>
+<rect x="24" y="80" width="752" height="64" rx="10" fill="#FFFFFF" stroke="#2C2C2A" stroke-width="1.5"/>
+<text x="400" y="120" font-size="20" fill="#2C2C2A" text-anchor="middle" font-family="ui-serif, Georgia, 'Times New Roman', serif">Attention(Q, K, V) = softmax( Q Kᵀ / √d_k ) V</text>
+<g font-size="15" font-weight="700" text-anchor="middle">
+<rect x="24" y="164" width="140" height="48" rx="8" fill="#E6F1FB" stroke="#185FA5"/><text x="94" y="193" fill="#0C447C">Q</text>
+<rect x="24" y="222" width="140" height="48" rx="8" fill="#E6F1FB" stroke="#185FA5"/><text x="94" y="251" fill="#0C447C">K</text>
+<rect x="24" y="280" width="140" height="48" rx="8" fill="#E1F5EE" stroke="#0F6E56"/><text x="94" y="309" fill="#085041">Q Kᵀ</text>
+<rect x="24" y="338" width="140" height="48" rx="8" fill="#E1F5EE" stroke="#0F6E56"/><text x="94" y="367" fill="#085041">÷ √d_k</text>
+<rect x="24" y="396" width="140" height="48" rx="8" fill="#E1F5EE" stroke="#0F6E56"/><text x="94" y="425" fill="#085041">softmax( )</text>
+<rect x="24" y="454" width="140" height="48" rx="8" fill="#E6F1FB" stroke="#185FA5"/><text x="94" y="483" fill="#0C447C">V</text>
+<rect x="24" y="512" width="140" height="48" rx="8" fill="#FAEEDA" stroke="#854F0B"/><text x="94" y="541" fill="#633806">result</text>
+</g>
+<g font-size="15" fill="#2C2C2A">
+<rect x="176" y="164" width="600" height="48" rx="8" fill="#FFFFFF" stroke="#D3D1C7"/><text x="192" y="193">Queries: one row per position, what it is looking for.</text>
+<rect x="176" y="222" width="600" height="48" rx="8" fill="#FFFFFF" stroke="#D3D1C7"/><text x="192" y="251">Keys: one row per position, what it can be matched on.</text>
+<rect x="176" y="280" width="600" height="48" rx="8" fill="#FFFFFF" stroke="#D3D1C7"/><text x="192" y="309">Every query times every key: a score for each pair.</text>
+<rect x="176" y="338" width="600" height="48" rx="8" fill="#FFFFFF" stroke="#D3D1C7"/><text x="192" y="367">Divide by the square root of the key size d_k.</text>
+<rect x="176" y="396" width="600" height="48" rx="8" fill="#FFFFFF" stroke="#D3D1C7"/><text x="192" y="425">Turn each row of scores into weights that add up to 1.</text>
+<rect x="176" y="454" width="600" height="48" rx="8" fill="#FFFFFF" stroke="#D3D1C7"/><text x="192" y="483">Values: one row per position, the content to be mixed.</text>
+<rect x="176" y="512" width="600" height="48" rx="8" fill="#FFFFFF" stroke="#D3D1C7"/><text x="192" y="541">For each position: the weighted mix of all the values.</text>
+</g>
+<rect x="24" y="574" width="752" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+<text x="400" y="602" font-size="15" fill="#085041" text-anchor="middle">In words: score every pair, scale, turn scores into weights, mix the values.</text>
+<rect x="24" y="626" width="752" height="26" rx="6" fill="#F1EFE8"/>
+<text x="400" y="644" font-size="13" fill="#2C2C2A" text-anchor="middle">Based on Eq. 1 and Sec. 3.2.1, p. 4. Colours: blue = inputs, teal = operations, amber = result.</text>
+</svg>

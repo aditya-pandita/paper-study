@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>Telephone game vs group chat</title>
+<desc>Left: children passing a message down a line. Right: everyone in one group chat. Labels: old way, new way.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F5E5A"/></marker></defs>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">Telephone game vs group chat</text>
+<rect x="24" y="80" width="364" height="260" rx="14" fill="#FAECE7" stroke="#993C1D"/>
+<rect x="412" y="80" width="364" height="260" rx="14" fill="#E1F5EE" stroke="#0F6E56"/>
+<text x="206" y="110" font-size="15" font-weight="700" fill="#712B13" text-anchor="middle">Old way: pass it along</text>
+<text x="594" y="110" font-size="15" font-weight="700" fill="#085041" text-anchor="middle">New way: one group chat</text>
+<g stroke="#993C1D" stroke-width="2" fill="none" marker-end="url(#a)">
+<path d="M90 200H112"/><path d="M158 200H180"/><path d="M226 200H248"/><path d="M294 200H316"/>
+</g>
+<g stroke="#0F6E56" stroke-width="1.5" fill="none">
+<path d="M594 140L661 188M594 140L635 267M594 140L553 267M594 140L527 188M661 188L635 267M661 188L553 267M661 188L527 188M635 267L553 267M635 267L527 188M553 267L527 188"/>
+</g>
+<g fill="#FFFFFF" stroke-width="2">
+<g stroke="#993C1D"><circle cx="68" cy="200" r="21"/><circle cx="135" cy="200" r="21"/><circle cx="202" cy="200" r="21"/><circle cx="269" cy="200" r="21"/><circle cx="336" cy="200" r="21"/></g>
+<g stroke="#0F6E56"><circle cx="594" cy="140" r="21"/><circle cx="661" cy="188" r="21"/><circle cx="635" cy="267" r="21"/><circle cx="553" cy="267" r="21"/><circle cx="527" cy="188" r="21"/></g>
+</g>
+<g font-size="15" text-anchor="middle" font-weight="700">
+<g fill="#712B13"><text x="68" y="205">A</text><text x="135" y="205">B</text><text x="202" y="205">C</text><text x="269" y="205">D</text><text x="336" y="205">E</text></g>
+<g fill="#085041"><text x="594" y="145">A</text><text x="661" y="193">B</text><text x="635" y="272">C</text><text x="553" y="272">D</text><text x="527" y="193">E</text></g>
+</g>
+<g font-size="15" text-anchor="middle">
+<text fill="#712B13"><tspan x="206" y="270">E hears A last, after</tspan><tspan x="206" y="292">everyone else has had a turn.</tspan></text>
+<text x="594" y="320" fill="#085041">Everyone hears everyone at once.</text>
+</g>
+<g font-size="13">
+<rect x="24" y="354" width="752" height="30" rx="6" fill="#FFFFFF" stroke="#D3D1C7"/>
+<text x="400" y="374" fill="#2C2C2A" text-anchor="middle">Words are the people. Old models pass meaning word by word; the Transformer lets all words talk.</text>
+<rect x="24" y="394" width="752" height="30" rx="6" fill="#F1EFE8"/>
+<text x="400" y="414" fill="#2C2C2A" text-anchor="middle">Analogy, not from the paper. The idea it explains is in Sec. 1 and Table 1, pp. 2 and 6.</text>
+</g>
+</svg>

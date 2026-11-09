@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "one_sentence": "The paper introduces the Transformer, a translation model built only from attention layers (no recurrence or convolution), which trains faster and scores higher on WMT 2014 English-German and English-French than earlier models.",
+  "sections": [
+    {
+      "kind": "title",
+      "pages": [
+        1,
+        1
+      ]
+    },
+    {
+      "kind": "abstract",
+      "pages": [
+        1,
+        1
+      ]
+    },
+    {
+      "kind": "intro",
+      "pages": [
+        2,
+        2
+      ]
+    },
+    {
+      "kind": "related",
+      "pages": [
+        2,
+        2
+      ]
+    },
+    {
+      "kind": "methods",
+      "pages": [
+        2,
+        7
+      ]
+    },
+    {
+      "kind": "experiments",
+      "pages": [
+        7,
+        10
+      ]
+    },
+    {
+      "kind": "conclusion",
+      "pages": [
+        10,
+        10
+      ]
+    },
+    {
+      "kind": "references",
+      "pages": [
+        10,
+        12
+      ]
+    },
+    {
+      "kind": "appendix",
+      "pages": [
+        13,
+        15
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "id": "fig1",
+      "page": 3,
+      "why_it_matters": "The full architecture: encoder stack on the left, decoder stack on the right, each built from attention and feed-forward sub-layers. This is the map for the whole method.",
+      "visual": "v02",
+      "originals": [
+        "orig-fig1"
+      ],
+      "spoiler": false
+    },
+    {
+      "id": "fig2",
+      "page": 4,
+      "why_it_matters": "Zooms into the core operation: scaled dot-product attention (left) and how several of them run side by side as multi-head attention (right).",
+      "visual": "v05b",
+      "originals": [
+        "orig-fig2a",
+        "orig-fig2b"
+      ],
+      "spoiler": false
+    },
+    {
+      "id": "tab1",
+      "page": 6,
+      "why_it_matters": "The argument for self-attention: compares cost per layer, sequential steps, and longest signal path against recurrent and convolutional layers.",
+      "visual": "v06",
+      "originals": [
+        "orig-tab1"
+      ],
+      "spoiler": false
+    },
+    {
+      "id": "tab2",
+      "page": 8,
+      "why_it_matters": "The headline result: BLEU scores and training cost against earlier translation models on EN-DE and EN-FR.",
+      "visual": "v03",
+      "originals": [
+        "orig-tab2"
+      ],
+      "spoiler": true
+    },
+    {
+      "id": "tab3",
+      "page": 9,
+      "why_it_matters": "The ablation study: what happens to quality when you change heads, key size, model size, dropout, label smoothing, or positional encoding.",
+      "visual": "v20",
+      "originals": [
+        "orig-tab3"
+      ],
+      "spoiler": true
+    },
+    {
+      "id": "tab4",
+      "page": 10,
+      "why_it_matters": "Evidence the model works beyond translation: English constituency parsing scores.",
+      "visual": null,
+      "originals": [
+        "orig-tab4"
+      ],
+      "spoiler": true
+    },
+    {
+      "id": "fig3",
+      "page": 13,
+      "why_it_matters": "Shows attention heads linking a word to a distant word in the same sentence, supporting the long-range dependency argument.",
+      "visual": null,
+      "originals": [
+        "orig-fig3"
+      ],
+      "spoiler": false
+    },
+    {
+      "id": "fig4",
+      "page": 14,
+      "why_it_matters": "Two heads that appear to resolve what the pronoun 'its' refers to.",
+      "visual": null,
+      "originals": [
+        "orig-fig4"
+      ],
+      "spoiler": false
+    },
+    {
+      "id": "fig5",
+      "page": 15,
+      "why_it_matters": "Different heads behave differently, suggesting they learn separate jobs.",
+      "visual": null,
+      "originals": [
+        "orig-fig5"
+      ],
+      "spoiler": false
+    }
+  ],
+  "prerequisites": [
+    {
+      "term": "Sequence transduction (encoder-decoder)",
+      "why": "The whole paper frames translation as turning one sequence into another: an encoder reads the input, a decoder writes the output one token at a time."
+    },
+    {
+      "term": "Recurrent neural network (RNN, LSTM)",
+      "why": "The approach the Transformer replaces. You need to see why stepping through words one by one blocks parallel training."
+    },
+    {
+      "term": "Attention (Bahdanau-style)",
+      "why": "Before this paper, attention was an add-on to RNNs that let the decoder look back at input words. The paper makes it the only building block."
+    },
+    {
+      "term": "Dot product and softmax",
+      "why": "Attention scores are dot products between vectors, turned into weights that sum to 1 with softmax."
+    },
+    {
+      "term": "Word embeddings and subword tokens",
+      "why": "Inputs are tokens turned into vectors of size d_model = 512; tokens come from byte-pair encoding or word-pieces."
+    },
+    {
+      "term": "Residual connections and layer normalization",
+      "why": "Every sub-layer is wrapped as LayerNorm(x + Sublayer(x)); without knowing these, the architecture diagram is hard to read."
+    },
+    {
+      "term": "BLEU score",
+      "why": "The translation quality metric used for every headline number. Higher is better."
+    },
+    {
+      "term": "Big-O complexity",
+      "why": "Section 4 and Table 1 argue with O(n^2 d) versus O(n d^2) and path lengths."
+    }
+  ],
+  "simple": {
+    "one_line": "Instead of reading a sentence one word at a time, the computer lets every word look at every other word at once, and that works better and faster.",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "simple": "The new model only uses 'looking at other words'. It does not read words in order.",
+        "analogy": "Like a class where every student can talk to every other student at once, instead of passing a note down the row."
+      },
+      {
+        "claim_id": "c2",
+        "simple": "It translated English to German better than any model before it.",
+        "analogy": "Like a new runner beating the record, even beating relay teams."
+      },
+      {
+        "claim_id": "c3",
+        "simple": "On English to French, it was the best single model.",
+        "analogy": "Like winning the solo race, not the team race."
+      },
+      {
+        "claim_id": "c4",
+        "simple": "Even the small version beat older models and cost much less to train.",
+        "analogy": "Like a bike beating cars in a race while using no gas."
+      },
+      {
+        "claim_id": "c5",
+        "simple": "Any word can reach any other word in one step.",
+        "analogy": "Like a group chat instead of a game of telephone."
+      },
+      {
+        "claim_id": "c6",
+        "simple": "For normal sentence lengths, this way is also cheaper.",
+        "analogy": "Like a group chat being quick when the group is small."
+      },
+      {
+        "claim_id": "c7",
+        "simple": "They shrink big scores so learning does not get stuck.",
+        "analogy": "Like turning down a speaker that is so loud you cannot hear any detail."
+      },
+      {
+        "claim_id": "c8",
+        "simple": "Several small lookers beat one big looker, but too many is worse.",
+        "analogy": "Like a team of eight detectives, each checking different clues."
+      },
+      {
+        "claim_id": "c9",
+        "simple": "Making the 'matching keys' too small hurts.",
+        "analogy": "Like trying to match people using only one fact about them."
+      },
+      {
+        "claim_id": "c10",
+        "simple": "Two ways of telling the model word order worked about the same.",
+        "analogy": "Like numbering seats with a fixed pattern or letting kids pick numbers. Both work."
+      },
+      {
+        "claim_id": "c11",
+        "simple": "Bigger models did better, and randomly switching parts off during training helped.",
+        "analogy": "Like practising with one hand tied so you do not rely on one trick."
+      },
+      {
+        "claim_id": "c12",
+        "simple": "It also did well at a different job: drawing a sentence's grammar tree.",
+        "analogy": "Like a translator who also turns out good at diagramming sentences."
+      }
+    ],
+    "terms": [
+      {
+        "term": "Attention",
+        "simple": "Deciding which other words matter most for this word."
+      },
+      {
+        "term": "Self-attention",
+        "simple": "Words in one sentence looking at each other."
+      },
+      {
+        "term": "Encoder",
+        "simple": "The part that reads and understands the input sentence."
+      },
+      {
+        "term": "Decoder",
+        "simple": "The part that writes the answer, one word at a time."
+      },
+      {
+        "term": "Head",
+        "simple": "One looker. Many heads look for different things."
+      },
+      {
+        "term": "Positional encoding",
+        "simple": "A tag on each word saying where it sits."
+      },
+      {
+        "term": "BLEU",
+        "simple": "A score for how close a translation is to a human one."
+      }
+    ]
+  }
+}

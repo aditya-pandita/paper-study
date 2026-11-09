@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "paper_id": null,
+  "source": "arxiv:1706.03762v7",
+  "title": "Attention Is All You Need",
+  "authors": [
+    "Ashish Vaswani",
+    "Noam Shazeer",
+    "Niki Parmar",
+    "Jakob Uszkoreit",
+    "Llion Jones",
+    "Aidan N. Gomez",
+    "Łukasz Kaiser",
+    "Illia Polosukhin"
+  ],
+  "pdf_sha256": "bdfaa68d8984f0dc02beaca527b76f207d99b666d31d1da728ee0728182df697",
+  "page_count": 15,
+  "generated_on": "2026-11-08",
+  "depth": "use",
+  "depth_recommendation": {
+    "value": "own",
+    "reason": "Foundational architecture behind most modern language models; worth mastering if you work in ML or NLP."
+  },
+  "pack_notes": [
+    "Built from arXiv v7 (2 Aug 2023). The paper appeared at NIPS 2017 (p. 1 footer), so it is peer-reviewed, not only a preprint.",
+    "Depth defaulted to 'use' with no background assumed, because none was given.",
+    "PDF page index and printed page numbers match on every numbered page (2-15); page 1 has no printed number. No printed_page fields are needed.",
+    "Mismatch in the paper: the abstract (p. 1) and Table 2 (p. 8) give 41.8 BLEU for EN-FR, but the text of Sec. 6.1 (p. 8) says 41.0. Claims use the table value and are marked medium confidence.",
+    "Mismatch in the paper: Table 3 lists dropout 0.3 for the big model, while Sec. 6.1 says the EN-FR big model used 0.1.",
+    "Figures 1 and 2 (pp. 3-4) are images. Their content is described here from the captions and Sec. 3 text; the pages will be rendered and inspected before any redraw in Round 4.",
+    "Appendix Figures 3-5 (pp. 13-15) are attention heat-line images whose text extracts as scattered words. Only their captions are used.",
+    "Likely citation slip in the paper: Sec. 5.1 (p. 7) cites [3] for byte-pair encoding, but [3] is Britz et al.; byte-pair encoding is [31]. refs.json r3 is marked medium confidence.",
+    "Reference links come from arXiv IDs printed in the reference list; their titles were matched against the arXiv API in this chat, but link_verified stays false until you open them.",
+    "Unlock choices: v03 shows the Table 2 numbers at triage_done, as the catalog asks; that is after the pass 1 prediction q3 is made. v09 (limits) is locked to debrief instead of pass4, because it would give away the answer to q12.",
+    "The predict-first pair v20/v20b uses Table 3 rows (A) (number of heads), not Fig. 1, because v02 already shows Fig. 1 at triage_done.",
+    "Original Figures 1 and 2 are included as PNGs in visuals/original/ (type 'original_figure', with a 'credit' field). Page 1 of the paper grants permission to reproduce its tables and figures for scholarly work with attribution. These two fields are additions to the base schema; the bundled study app accepts them.",
+    "lessons.json (10 lessons, 32 steps, Simple and Full levels) is an addition to the base prompt: it powers the app's Read mode. See paper-study-app/PROMPT-ADDENDUM.md.",
+    "Sections 1-7 run 10 pages, so the whole paper is covered; no appendix permission needed."
+  ]
+}

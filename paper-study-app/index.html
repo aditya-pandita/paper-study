@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FAF9F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1C1C1A" media="(prefers-color-scheme: dark)">
+<title>Paper Study</title>
+<link rel="stylesheet" href="style.css?v=8">
+</head>
+<body>
+<header class="topbar">
+  <button id="appbar-back" class="appbar-back" type="button" aria-label="Back" hidden>←</button>
+  <a href="#/" class="brand">Paper Study</a>
+  <span id="appbar-title" class="appbar-title"></span>
+  <a href="#/me" id="hud" class="hud" aria-label="Your profile"></a>
+  <details class="menu import-menu">
+    <summary class="btn secondary">Import</summary>
+    <div class="menu-list right">
+      <button id="import-folder" type="button">Pack folder…</button>
+      <button id="import-file" type="button">Single .pack.json…</button>
+    </div>
+  </details>
+  <input id="pick-folder" type="file" webkitdirectory multiple hidden>
+  <input id="pick-files" type="file" accept=".json,application/json" multiple hidden>
+</header>
+<main id="main" tabindex="-1"></main>
+<dialog id="modal"><div id="modal-body"></div><form method="dialog" class="modal-close"><button class="btn ghost">Close</button></form></dialog>
+<noscript><p class="panel">This app needs JavaScript to import and run study packs.</p></noscript>
+<script src="lib/validate.js?v=8"></script>
+<script src="lib/fixes.js?v=8"></script>
+<script src="app.js?v=8"></script>
+</body>
+</html>

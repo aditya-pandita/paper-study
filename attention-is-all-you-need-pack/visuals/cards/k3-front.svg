@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>Equation 1 with a gap</title>
+<desc>softmax of Q K-transpose over a blank box, times V.</desc>
+<rect x="12" y="12" width="376" height="216" rx="12" fill="#F1EFE8"/>
+<rect x="28" y="40" width="344" height="110" rx="10" fill="#FFFFFF" stroke="#5F5E5A"/>
+<g font-size="20" fill="#2C2C2A" font-family="ui-serif, Georgia, 'Times New Roman', serif" text-anchor="middle">
+<text x="104" y="102">softmax(</text><text x="206" y="82">Q Kᵀ</text><text x="292" y="102">)  V</text>
+</g>
+<path d="M164 92H248" stroke="#2C2C2A" stroke-width="2" fill="none"/>
+<rect x="178" y="100" width="56" height="32" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-dasharray="4 3"/>
+<text x="206" y="122" font-size="15" font-weight="700" fill="#633806" text-anchor="middle">?</text>
+<text x="200" y="182" font-size="15" fill="#2C2C2A" text-anchor="middle">What goes in the gap, and why?</text>
+<text x="200" y="210" font-size="13" fill="#5F5E5A" text-anchor="middle">Eq. 1, p. 4</text>
+</svg>

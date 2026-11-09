@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>Scaled dot-product attention</title>
+<desc>Q and K go into a matrix multiply, then scale by one over root d_k, optional mask, softmax; the resulting weights multiply V to give the output.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F5E5A"/></marker></defs>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">One attention operation, step by step</text>
+<g font-size="15" text-anchor="middle">
+<rect x="24" y="92" width="96" height="44" rx="8" fill="#E6F1FB" stroke="#185FA5"/>
+<text x="72" y="119" fill="#0C447C">Q (d_k)</text>
+<rect x="24" y="160" width="96" height="44" rx="8" fill="#E6F1FB" stroke="#185FA5"/>
+<text x="72" y="187" fill="#0C447C">K (d_k)</text>
+<rect x="164" y="118" width="160" height="60" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+<text fill="#085041"><tspan x="244" y="143">Dot products</tspan><tspan x="244" y="164">Q · Kᵀ</tspan></text>
+<rect x="364" y="118" width="160" height="60" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+<text fill="#085041"><tspan x="444" y="143">Scale</tspan><tspan x="444" y="164">divide by √d_k</tspan></text>
+<rect x="564" y="118" width="196" height="60" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+<text fill="#085041"><tspan x="662" y="143">Mask (optional)</tspan><tspan x="662" y="164">decoder only</tspan></text>
+<rect x="564" y="252" width="196" height="60" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+<text fill="#085041"><tspan x="662" y="277">Softmax</tspan><tspan x="662" y="298">weights add to 1</tspan></text>
+<rect x="364" y="252" width="160" height="60" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+<text fill="#085041"><tspan x="444" y="277">Weighted sum</tspan><tspan x="444" y="298">weights × V</tspan></text>
+<rect x="384" y="368" width="120" height="44" rx="8" fill="#E6F1FB" stroke="#185FA5"/>
+<text x="444" y="395" fill="#0C447C">V (d_v)</text>
+<rect x="124" y="252" width="200" height="60" rx="8" fill="#FAEEDA" stroke="#854F0B"/>
+<text fill="#633806"><tspan x="224" y="277">Output</tspan><tspan x="224" y="298">a d_v vector per query</tspan></text>
+</g>
+<g stroke="#5F5E5A" stroke-width="2" fill="none" marker-end="url(#a)">
+<path d="M122 114L162 136"/><path d="M122 182L162 160"/>
+<path d="M326 148H362"/><path d="M526 148H562"/><path d="M662 180V250"/>
+<path d="M562 282H526"/><path d="M444 366V314"/><path d="M362 282H326"/>
+</g>
+<g font-size="13">
+<rect x="24" y="436" width="62" height="24" rx="6" fill="#E6F1FB" stroke="#185FA5"/><text x="55" y="453" fill="#0C447C" text-anchor="middle">input</text>
+<rect x="94" y="436" width="62" height="24" rx="6" fill="#E1F5EE" stroke="#0F6E56"/><text x="125" y="453" fill="#085041" text-anchor="middle">step</text>
+<rect x="164" y="436" width="70" height="24" rx="6" fill="#FAEEDA" stroke="#854F0B"/><text x="199" y="453" fill="#633806" text-anchor="middle">output</text>
+<rect x="24" y="472" width="752" height="30" rx="6" fill="#F1EFE8"/>
+<text x="400" y="492" fill="#2C2C2A" text-anchor="middle">Redrawn and simplified from Fig. 2 (left) and Eq. 1, p. 4. Masking: Sec. 3.2.3, p. 5.</text>
+</g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>Where Q, K, V come from</title>
+<desc>Encoder-decoder attention box with three inputs Q, K, V; each source label is blank.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F5E5A"/></marker></defs>
+<rect x="12" y="12" width="376" height="216" rx="12" fill="#F1EFE8"/>
+<rect x="100" y="34" width="200" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56"/>
+<text x="200" y="61" font-size="15" fill="#085041" text-anchor="middle">Enc-dec attention</text>
+<g stroke="#5F5E5A" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M120 124V80"/><path d="M200 124V80"/><path d="M280 124V80"/></g>
+<g font-size="15" text-anchor="middle">
+<text x="132" y="108" fill="#2C2C2A" font-weight="700" text-anchor="start">Q</text><text x="212" y="108" fill="#2C2C2A" font-weight="700" text-anchor="start">K</text><text x="292" y="108" fill="#2C2C2A" font-weight="700" text-anchor="start">V</text>
+<rect x="84" y="128" width="72" height="34" rx="6" fill="#FAEEDA" stroke="#854F0B"/><text x="120" y="150" fill="#633806" font-weight="700">?</text>
+<rect x="164" y="128" width="72" height="34" rx="6" fill="#FAEEDA" stroke="#854F0B"/><text x="200" y="150" fill="#633806" font-weight="700">?</text>
+<rect x="244" y="128" width="72" height="34" rx="6" fill="#FAEEDA" stroke="#854F0B"/><text x="280" y="150" fill="#633806" font-weight="700">?</text>
+<text x="200" y="190" fill="#2C2C2A">Where does each input come from?</text>
+</g>
+<text x="200" y="214" font-size="13" fill="#5F5E5A" text-anchor="middle">Sec. 3.2.3, p. 5</text>
+</svg>

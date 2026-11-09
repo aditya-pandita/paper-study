@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>RNN chain with a gap</title>
+<desc>Chain of hidden states h1, h2, h3 with the arrow between them labelled with a question mark.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F5E5A"/></marker></defs>
+<rect x="12" y="12" width="376" height="216" rx="12" fill="#F1EFE8"/>
+<g stroke="#5F5E5A" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M104 100H156"/><path d="M244 100H296"/></g>
+<g font-size="15" text-anchor="middle">
+<circle cx="72" cy="100" r="30" fill="#FFFFFF" stroke="#5F5E5A" stroke-width="2"/><text x="72" y="105" fill="#2C2C2A">h1</text>
+<circle cx="200" cy="100" r="30" fill="#FFFFFF" stroke="#5F5E5A" stroke-width="2"/><text x="200" y="105" fill="#2C2C2A">h2</text>
+<circle cx="328" cy="100" r="30" fill="#FFFFFF" stroke="#5F5E5A" stroke-width="2"/><text x="328" y="105" fill="#2C2C2A">h3</text>
+<rect x="250" y="56" width="40" height="26" rx="6" fill="#FAEEDA" stroke="#854F0B"/><text x="270" y="74" fill="#633806" font-weight="700">?</text>
+<text x="200" y="176" fill="#2C2C2A">Why can't h3 start before h2?</text>
+</g>
+<text x="200" y="210" font-size="13" fill="#5F5E5A" text-anchor="middle">Sec. 1, p. 2</text>
+</svg>

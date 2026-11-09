@@ -1,0 +1,559 @@
+{
+ "schema_version": 1,
+ "visuals": [
+  {
+   "id": "v01",
+   "file": "visuals/v01-paper-at-a-glance.svg",
+   "type": "overview",
+   "title": "Paper at a glance",
+   "purpose": "What problem does the paper tackle, what is the idea, and what did it achieve?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 1,
+    "ref": "Abstract"
+   },
+   "alt_text": "Five boxes left to right: problem (RNNs are sequential), idea (attention only), how (multi-head self-attention plus positional encoding), result (28.4 and 41.8 BLEU), limits (quadratic cost, added position).",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "v02",
+   "file": "visuals/v02-method-pipeline.svg",
+   "type": "pipeline",
+   "title": "How the Transformer works",
+   "purpose": "What are the parts of the model and how does data flow from input tokens to next-token probabilities?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 3,
+    "ref": "Fig. 1"
+   },
+   "alt_text": "Encoder column: embedding plus position, then six layers of self-attention and feed-forward. Decoder column: masked self-attention, encoder-decoder attention fed by the encoder, feed-forward, then linear and softmax to probabilities.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Fig. 1"
+  },
+  {
+   "id": "v03",
+   "file": "visuals/v03-main-result.svg",
+   "type": "result_chart",
+   "title": "The main result: English-German BLEU",
+   "purpose": "How does the Transformer's translation score compare with earlier models and ensembles?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 8,
+    "ref": "Table 2"
+   },
+   "alt_text": "Horizontal bar chart of EN-DE BLEU. Earlier models from 23.75 (ByteNet) to 26.36 (ConvS2S ensemble). Transformer base 27.3, Transformer big 28.4.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Table 2"
+  },
+  {
+   "id": "v04",
+   "file": "visuals/v04-architecture-walkthrough.svg",
+   "type": "figure_walkthrough",
+   "title": "Reading Figure 1 step by step",
+   "purpose": "In what order should you read the architecture figure, and what does each part do?",
+   "unlock": "pass2",
+   "source": {
+    "page": 3,
+    "ref": "Fig. 1"
+   },
+   "alt_text": "The architecture figure redrawn with five numbered callouts: embeddings and position, encoder layer, masked decoder self-attention, encoder-decoder attention, output projection.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Fig. 1"
+  },
+  {
+   "id": "v05a",
+   "file": "visuals/v05a-scaled-dot-product-attention.svg",
+   "type": "concept",
+   "title": "Scaled dot-product attention",
+   "purpose": "What goes into one attention operation, what happens inside, and what comes out?",
+   "unlock": "pass2",
+   "source": {
+    "page": 4,
+    "ref": "Fig. 2 (left)"
+   },
+   "alt_text": "Q and K go into a matrix multiply, then scale by one over root d_k, optional mask, softmax; the resulting weights multiply V to give the output.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Fig. 2"
+  },
+  {
+   "id": "v05b",
+   "file": "visuals/v05b-multi-head-attention.svg",
+   "type": "concept",
+   "title": "Multi-head attention",
+   "purpose": "How do several attention heads run side by side and get combined?",
+   "unlock": "pass2",
+   "source": {
+    "page": 4,
+    "ref": "Fig. 2 (right)"
+   },
+   "alt_text": "Q, K, V each projected h = 8 times to 64 dimensions, attention run in each head in parallel, outputs concatenated and projected back to 512.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Fig. 2"
+  },
+  {
+   "id": "v05c",
+   "file": "visuals/v05c-positional-encoding.svg",
+   "type": "concept",
+   "title": "Positional encoding",
+   "purpose": "How does the model learn word order when nothing in it is sequential?",
+   "unlock": "pass2",
+   "source": {
+    "page": 6,
+    "ref": "Sec. 3.5"
+   },
+   "alt_text": "Token embedding plus a sinusoidal position vector of the same size gives the input to the first layer. Each dimension is a sine or cosine of a different frequency.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "v06",
+   "file": "visuals/v06-rnn-vs-transformer.svg",
+   "type": "comparison",
+   "title": "What changed: recurrence vs self-attention",
+   "purpose": "How does a self-attention layer differ from a recurrent or convolutional layer in parallelism and path length?",
+   "unlock": "pass2",
+   "source": {
+    "page": 6,
+    "ref": "Table 1"
+   },
+   "alt_text": "Side by side: recurrent layer passes a state step by step (O(n) sequential steps, O(n) path); self-attention links every pair directly (O(1) steps, O(1) path) at O(n squared times d) cost.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Table 1"
+  },
+  {
+   "id": "v07",
+   "file": "visuals/v07-attention-equation.svg",
+   "type": "equation_decoder",
+   "title": "Decoding Equation 1",
+   "purpose": "What does each symbol in the attention equation mean?",
+   "unlock": "pass3",
+   "source": {
+    "page": 4,
+    "ref": "Eq. 1"
+   },
+   "alt_text": "Attention(Q, K, V) = softmax(Q K-transpose over root d_k) V, with each symbol labelled in words and a one-line plain reading.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "v08",
+   "file": "visuals/v08-concept-map.svg",
+   "type": "concept_map",
+   "title": "How the ideas connect",
+   "purpose": "How do the paper's main terms relate to each other?",
+   "unlock": "pass3",
+   "source": {
+    "page": 3,
+    "ref": "Sec. 3"
+   },
+   "alt_text": "Concept map linking Transformer, encoder, decoder, multi-head attention, scaled dot-product attention, query/key/value, masking, positional encoding, feed-forward, residual and layer norm.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "v09",
+   "file": "visuals/v09-where-it-breaks.svg",
+   "type": "limits",
+   "title": "Where it breaks",
+   "purpose": "What limits and assumptions does the paper itself state?",
+   "unlock": "debrief",
+   "source": {
+    "page": 7,
+    "ref": "Sec. 4"
+   },
+   "alt_text": "Coral boxes: cost grows with sequence length squared; restricted attention trades path length; averaging lowers resolution; position must be injected; extrapolation is untested; results are translation and parsing only.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "v10",
+   "file": "visuals/v10-lineage.svg",
+   "type": "lineage",
+   "title": "What it builds on",
+   "purpose": "Which earlier work does the Transformer combine, and what role does each play?",
+   "unlock": "pass4",
+   "source": {
+    "page": 2,
+    "ref": "Sec. 2"
+   },
+   "alt_text": "Left to right: seq2seq and attention foundations, ResNet and LayerNorm methods used, ByteNet and ConvS2S baselines, leading to the Transformer.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "v20",
+   "file": "visuals/v20-predict-heads.svg",
+   "type": "predict_blank",
+   "title": "Predict: dev BLEU vs number of heads",
+   "purpose": "Before reading Table 3, what do you expect happens to quality as you split attention into more, smaller heads?",
+   "unlock": "pass1",
+   "source": {
+    "page": 9,
+    "ref": "Table 3 (A)"
+   },
+   "alt_text": "Empty bar chart with five slots for 1, 4, 8, 16 and 32 heads, each with a question mark, y-axis dev BLEU from 0 to 30.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Table 3"
+  },
+  {
+   "id": "v20b",
+   "file": "visuals/v20b-heads-answer.svg",
+   "type": "predict_blank",
+   "title": "Dev BLEU vs number of heads",
+   "purpose": "What did Table 3 rows (A) actually show about the number of heads?",
+   "unlock": "debrief",
+   "source": {
+    "page": 9,
+    "ref": "Table 3 (A)"
+   },
+   "alt_text": "Bar chart of dev BLEU: 1 head 24.9, 4 heads 25.5, 8 heads 25.8, 16 heads 25.8, 32 heads 25.4.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Table 3"
+  },
+  {
+   "id": "orig-fig1",
+   "file": "visuals/original/fig1-architecture.png",
+   "type": "original_figure",
+   "title": "Original Figure 1: The Transformer architecture",
+   "purpose": "What does the authors' own architecture diagram look like, so you can check the v02 and v04 redraws against it?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 3,
+    "ref": "Fig. 1"
+   },
+   "alt_text": "The paper's original architecture diagram: encoder stack on the left, decoder stack on the right, with Add & Norm, attention and feed-forward blocks, embeddings, positional encoding, linear and softmax.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Fig. 1, p. 3, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-fig2a",
+   "file": "visuals/original/fig2-left-scaled-dot-product.png",
+   "type": "original_figure",
+   "title": "Original Figure 2 (left): Scaled Dot-Product Attention",
+   "purpose": "What does the authors' diagram of one attention operation look like, to check against v05a?",
+   "unlock": "pass2",
+   "source": {
+    "page": 4,
+    "ref": "Fig. 2 (left)"
+   },
+   "alt_text": "The paper's original diagram: Q and K into MatMul, then Scale, optional Mask, SoftMax, then MatMul with V.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Fig. 2, p. 4, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-fig2b",
+   "file": "visuals/original/fig2-right-multi-head.png",
+   "type": "original_figure",
+   "title": "Original Figure 2 (right): Multi-Head Attention",
+   "purpose": "What does the authors' multi-head diagram look like, to check against v05b?",
+   "unlock": "pass2",
+   "source": {
+    "page": 4,
+    "ref": "Fig. 2 (right)"
+   },
+   "alt_text": "The paper's original diagram: V, K, Q each through stacked Linear layers, h parallel Scaled Dot-Product Attention blocks, Concat, then Linear.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Fig. 2, p. 4, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-tab1",
+   "file": "visuals/original/tab1-complexity.png",
+   "type": "original_figure",
+   "title": "Original Table 1: cost, sequential steps and path length",
+   "purpose": "What exactly does Table 1 compare across layer types?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 6,
+    "ref": "Table 1"
+   },
+   "alt_text": "The paper's Table 1: complexity per layer, sequential operations and maximum path length for self-attention, recurrent, convolutional and restricted self-attention layers.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Table 1, p. 6, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-tab2",
+   "file": "visuals/original/tab2-bleu.png",
+   "type": "original_figure",
+   "title": "Original Table 2: translation results",
+   "purpose": "How do the Transformer's BLEU scores and training costs compare with earlier models?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 8,
+    "ref": "Table 2"
+   },
+   "alt_text": "The paper's Table 2: BLEU on EN-DE and EN-FR and training cost in FLOPs for earlier models, ensembles and both Transformer sizes.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Table 2, p. 8, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-tab3",
+   "file": "visuals/original/tab3-variations.png",
+   "type": "original_figure",
+   "title": "Original Table 3: model variations",
+   "purpose": "What happens when each part of the base model is changed?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 9,
+    "ref": "Table 3"
+   },
+   "alt_text": "The paper's Table 3: rows A to E and big, varying heads, key size, model size, dropout, label smoothing and positional encoding, with dev perplexity, BLEU and parameters.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Table 3, p. 9, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-tab4",
+   "file": "visuals/original/tab4-parsing.png",
+   "type": "original_figure",
+   "title": "Original Table 4: English constituency parsing",
+   "purpose": "How does the Transformer do on parsing compared with other parsers?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 10,
+    "ref": "Table 4"
+   },
+   "alt_text": "The paper's Table 4: WSJ section 23 F1 for parsers trained on WSJ only, semi-supervised, multi-task and generative settings, including the 4-layer Transformer.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Table 4, p. 10, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-fig3",
+   "file": "visuals/original/fig3-long-range.png",
+   "type": "original_figure",
+   "title": "Original Figure 3: following a long-distance link",
+   "purpose": "What does one attention head look at when it reads the word 'making'?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 13,
+    "ref": "Fig. 3"
+   },
+   "alt_text": "The paper's Figure 3, rotated to read left to right: encoder self-attention in layer 5 linking 'making' to 'more difficult'; colours are different heads.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Fig. 3, p. 13, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-fig4",
+   "file": "visuals/original/fig4-anaphora.png",
+   "type": "original_figure",
+   "title": "Original Figure 4: heads that resolve 'its'",
+   "purpose": "Which words do two attention heads link to the pronoun 'its'?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 14,
+    "ref": "Fig. 4"
+   },
+   "alt_text": "The paper's Figure 4, rotated: left, isolated attention from 'its' for heads 5 and 6; right, full attention of head 5. Both are encoder layer 5.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Fig. 4, p. 14, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "orig-fig5",
+   "file": "visuals/original/fig5-structure.png",
+   "type": "original_figure",
+   "title": "Original Figure 5: heads with different jobs",
+   "purpose": "Do different attention heads behave differently?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 15,
+    "ref": "Fig. 5"
+   },
+   "alt_text": "The paper's Figure 5, rotated: two encoder heads in layer 5 with different attention patterns that seem to follow sentence structure.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null,
+   "credit": "Reproduced from Vaswani et al. (2017), Fig. 5, p. 15, under the permission stated on p. 1 for scholarly use with attribution."
+  },
+  {
+   "id": "s01",
+   "file": "visuals/s01-group-chat.svg",
+   "type": "analogy",
+   "title": "Telephone game vs group chat",
+   "purpose": "What is the core idea, in one everyday picture?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 6,
+    "ref": "Table 1"
+   },
+   "alt_text": "Left: children passing a message down a line. Right: everyone in one group chat. Labels: old way, new way.",
+   "analogy": true,
+   "simple": true,
+   "redrawn_from": null
+  },
+  {
+   "id": "s02",
+   "file": "visuals/s02-what-they-did.svg",
+   "type": "comic",
+   "title": "What the paper did",
+   "purpose": "What did the authors do, in three steps?",
+   "unlock": "triage_done",
+   "source": {
+    "page": 1,
+    "ref": "Abstract"
+   },
+   "alt_text": "Three panels: old models read one word at a time; the new model lets all words look at each other; it translated better and trained faster.",
+   "analogy": false,
+   "simple": true,
+   "redrawn_from": null
+  },
+  {
+   "id": "s03",
+   "file": "visuals/s03-idea-ladder.svg",
+   "type": "ladder",
+   "title": "Building blocks, bottom to top",
+   "purpose": "What do you need to understand first, and what builds on it?",
+   "unlock": "pass2",
+   "source": {
+    "page": 3,
+    "ref": "Sec. 3"
+   },
+   "alt_text": "Stacked blocks from bottom: words as number lists, matching scores, weights that add to one, attention, many heads, the full Transformer.",
+   "analogy": false,
+   "simple": true,
+   "redrawn_from": null
+  },
+  {
+   "id": "k1-front",
+   "file": "visuals/cards/k1-front.svg",
+   "type": "card_visual",
+   "title": "RNN chain with a gap",
+   "purpose": "Cue for card k1: what forces an RNN to compute in order?",
+   "unlock": "pass2",
+   "source": {
+    "page": 2,
+    "ref": "Sec. 1"
+   },
+   "alt_text": "Chain of hidden states h1, h2, h3 with the arrow between them labelled with a question mark.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "k2-front",
+   "file": "visuals/cards/k2-front.svg",
+   "type": "card_visual",
+   "title": "Table 1 with gaps",
+   "purpose": "Cue for card k2: sequential steps and path length for each layer type.",
+   "unlock": "pass2",
+   "source": {
+    "page": 6,
+    "ref": "Table 1"
+   },
+   "alt_text": "Small table: rows self-attention and recurrent, columns sequential operations and maximum path length, cells blank.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": "Table 1"
+  },
+  {
+   "id": "k3-front",
+   "file": "visuals/cards/k3-front.svg",
+   "type": "card_visual",
+   "title": "Equation 1 with a gap",
+   "purpose": "Cue for card k3: what divides QK-transpose, and why?",
+   "unlock": "pass2",
+   "source": {
+    "page": 4,
+    "ref": "Eq. 1"
+   },
+   "alt_text": "softmax of Q K-transpose over a blank box, times V.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "k5-front",
+   "file": "visuals/cards/k5-front.svg",
+   "type": "card_visual",
+   "title": "Decoder mask grid",
+   "purpose": "Cue for card k5: which attention links does the decoder mask block?",
+   "unlock": "pass2",
+   "source": {
+    "page": 3,
+    "ref": "Sec. 3.1"
+   },
+   "alt_text": "Four by four grid of decoder positions attending to positions; the upper-right cells are marked with a question mark.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "k6-front",
+   "file": "visuals/cards/k6-front.svg",
+   "type": "card_visual",
+   "title": "Where Q, K, V come from",
+   "purpose": "Cue for card k6: sources of queries, keys, and values in encoder-decoder attention.",
+   "unlock": "pass2",
+   "source": {
+    "page": 5,
+    "ref": "Sec. 3.2.3"
+   },
+   "alt_text": "Encoder-decoder attention box with three inputs Q, K, V; each source label is blank.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "k16-front",
+   "file": "visuals/cards/k16-front.svg",
+   "type": "card_visual",
+   "title": "Learning-rate schedule shape",
+   "purpose": "Cue for card k16: how the learning rate changes before and after warmup.",
+   "unlock": "pass3",
+   "source": {
+    "page": 7,
+    "ref": "Eq. 3"
+   },
+   "alt_text": "Axes of learning rate against training step with a marker at warmup_steps and both curve segments left blank.",
+   "analogy": false,
+   "simple": false,
+   "redrawn_from": null
+  },
+  {
+   "id": "video-overview",
+   "file": "visuals/media/overview.mp4",
+   "type": "video",
+   "title": "Narrated overview",
+   "purpose": "A 2.4-minute narrated walk through the paper's main ideas, one lesson per scene.",
+   "unlock": "triage_done",
+   "source": {
+    "page": 1,
+    "ref": "Abstract"
+   },
+   "alt_text": "Narrated slideshow: one scene per lesson with its picture and a plain-language summary, read aloud by a synthetic voice.",
+   "analogy": false,
+   "simple": true,
+   "redrawn_from": null
+  }
+ ]
+}

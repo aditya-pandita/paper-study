@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 620" role="img" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title>Where it breaks</title>
+<desc>Coral boxes: cost grows with sequence length squared; restricted attention trades path length; averaging lowers resolution; position must be injected; extrapolation is untested; results are translation and parsing only.</desc>
+<rect x="24" y="24" width="752" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A"/>
+<text x="400" y="51" font-size="20" font-weight="600" fill="#2C2C2A" text-anchor="middle">Where it breaks, by the paper's own account</text>
+<g font-size="13">
+<rect x="24" y="80" width="364" height="100" rx="10" fill="#FAECE7" stroke="#993C1D"/>
+<text x="40" y="106" font-size="15" font-weight="700" fill="#712B13">Cost grows with length squared</text>
+<text fill="#712B13"><tspan x="40" y="132">Every position attends to every other:</tspan><tspan x="40" y="152">O(n²·d) work per layer.</tspan><tspan x="40" y="170" font-style="italic">Sec. 4, p. 6</tspan></text>
+<rect x="412" y="80" width="364" height="100" rx="10" fill="#FAECE7" stroke="#993C1D"/>
+<text x="428" y="106" font-size="15" font-weight="700" fill="#712B13">A cheaper window has a price</text>
+<text fill="#712B13"><tspan x="428" y="132">Attending to r neighbours costs O(r·n·d),</tspan><tspan x="428" y="152">but the longest path grows to O(n/r).</tspan><tspan x="428" y="170" font-style="italic">Sec. 4, p. 7 (left as future work)</tspan></text>
+<rect x="24" y="192" width="364" height="100" rx="10" fill="#FAECE7" stroke="#993C1D"/>
+<text x="40" y="218" font-size="15" font-weight="700" fill="#712B13">Averaging blurs detail</text>
+<text fill="#712B13"><tspan x="40" y="244">Weighted averages reduce "effective</tspan><tspan x="40" y="264">resolution"; multiple heads offset it.</tspan><tspan x="40" y="282" font-style="italic">Sec. 2, p. 2</tspan></text>
+<rect x="412" y="192" width="364" height="100" rx="10" fill="#FAECE7" stroke="#993C1D"/>
+<text x="428" y="218" font-size="15" font-weight="700" fill="#712B13">Word order has to be added</text>
+<text fill="#712B13"><tspan x="428" y="244">Nothing in the model carries order, so</tspan><tspan x="428" y="264">position codes must be injected.</tspan><tspan x="428" y="282" font-style="italic">Sec. 3.5, p. 6</tspan></text>
+<rect x="24" y="304" width="364" height="100" rx="10" fill="#FAECE7" stroke="#993C1D"/>
+<text x="40" y="330" font-size="15" font-weight="700" fill="#712B13">Writing is still one token at a time</text>
+<text fill="#712B13"><tspan x="40" y="356">The decoder stays auto-regressive;</tspan><tspan x="40" y="376">less sequential generation is a goal.</tspan><tspan x="40" y="394" font-style="italic">Sec. 7, p. 10</tspan></text>
+<rect x="412" y="304" width="364" height="100" rx="10" fill="#FAECE7" stroke="#993C1D"/>
+<text x="428" y="330" font-size="15" font-weight="700" fill="#712B13">Tested on text only</text>
+<text fill="#712B13"><tspan x="428" y="356">Translation and English parsing; images,</tspan><tspan x="428" y="376">audio and video are left for later.</tspan><tspan x="428" y="394" font-style="italic">Sec. 7, p. 10</tspan></text>
+<rect x="24" y="416" width="364" height="100" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-dasharray="5 3"/>
+<text x="40" y="442" font-size="15" font-weight="700" fill="#2C2C2A">Pack note: longer inputs untested</text>
+<text fill="#2C2C2A"><tspan x="40" y="468">Sinusoids "may" extrapolate to longer</tspan><tspan x="40" y="488">sequences; no experiment checks it.</tspan><tspan x="40" y="506" font-style="italic">Sec. 3.5, p. 6</tspan></text>
+<rect x="412" y="416" width="364" height="100" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-dasharray="5 3"/>
+<text x="428" y="442" font-size="15" font-weight="700" fill="#2C2C2A">Pack note: no error bars</text>
+<text fill="#2C2C2A"><tspan x="428" y="468">Table 3 compares single runs, so gaps of</tspan><tspan x="428" y="488">a few tenths of BLEU may be noise.</tspan><tspan x="428" y="506" font-style="italic">Table 3, p. 9</tspan></text>
+<rect x="24" y="532" width="200" height="26" rx="6" fill="#FAECE7" stroke="#993C1D"/><text x="124" y="550" fill="#712B13" text-anchor="middle">limit the paper states</text>
+<rect x="234" y="532" width="250" height="26" rx="6" fill="#F1EFE8" stroke="#5F5E5A" stroke-dasharray="5 3"/><text x="359" y="550" fill="#2C2C2A" text-anchor="middle">pack note: our reading, not the paper</text>
+<rect x="24" y="572" width="752" height="30" rx="6" fill="#F1EFE8"/>
+<text x="400" y="592" fill="#2C2C2A" text-anchor="middle">Summarised from Sec. 2, 3.5, 4 and 7 and Table 3. n = sequence length, d = vector size.</text>
+</g>
+</svg>
